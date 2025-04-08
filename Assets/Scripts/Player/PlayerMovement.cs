@@ -3,25 +3,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float maxUprightAngle = 7.2f;
-    public float maxTurnAngle = 53.5f;
+    public Transform[] raycastSpots;
 
+    [Header("Balance")]
     public float balancePower = 6.075f;
+    public float maxBalancedAngle = 7.2f;
 
+    [Header("Turn")]
     public float maxTurnSpeed = 280;
     public float lerpTurnTime = 0.5f;
+    public float maxTurnAngle = 53.5f;
 
+    [Header("Jump")]
     public float jumpPower = 11;
-
-    public Transform[] raycastSpots;
 
     bool isTurning;
     bool turnRight;
-    bool hasAppliedDamping;
-    bool inContact;
-
     float turningTime;
     float unbalancedTime;
+
+    bool inContact;
 
     Rigidbody2D rb;
 
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float rotation = GetRotation();
 
-        if(Mathf.Abs(rotation) > maxUprightAngle)
+        if(Mathf.Abs(rotation) > maxBalancedAngle)
         {
             if (inContact)
             {
@@ -118,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         float rot = Mathf.Repeat(rb.rotation, 360f);
         if (rot > 180f)
             rot -= 360f;
-        // -180 and 180, with 0 being vertical
+        
         return rot;
     }
 
