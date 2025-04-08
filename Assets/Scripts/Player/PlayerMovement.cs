@@ -84,6 +84,14 @@ public class PlayerMovement : MonoBehaviour
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
+        // Flip character to turn direction
+        // TODO: Most likely control by a separate script and listen to OnTurnDirChange
+        if (this.turnRight != turnRight)
+        {
+            transform.GetChild(0).localScale = new Vector3(turnRight ? -1 : 1, 1, 1);
+            transform.GetChild(0).GetChild(1).eulerAngles = new Vector3(0, 0, transform.GetChild(0).GetChild(1).eulerAngles.z * -1f);
+        }
+
         this.turnRight = turnRight;
         isTurning = true;
     }
