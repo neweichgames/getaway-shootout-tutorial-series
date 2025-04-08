@@ -16,11 +16,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jump")]
     public float jumpPower = 11;
+    public float jumpCoolDown = 0.15f;
 
     bool isTurning;
     bool turnRight;
     float turningTime;
     float unbalancedTime;
+    float jumpTime;
 
     bool inContact;
 
@@ -33,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if(jumpTime >= 0f)
+            jumpTime -= Time.deltaTime;
+
         if (Keyboard.current.wKey.isPressed)
             StartTurn(false);
         else if (Keyboard.current.eKey.isPressed)
@@ -79,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartTurn(bool turnRight)
     {
-        if (isTurning || IsGrounded() == false)
+        if (isTurning || IsGrounded() == false || jumpTime > 0f)
             return;
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
