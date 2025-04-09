@@ -44,7 +44,12 @@ public class PlayerMovement : MonoBehaviour
         if (isTurning)
             Turn();
         else
-            Balance();   
+            Balance();
+
+        // Reset our inContact variable
+        // Note: inContact will be a frame behind since OnCollisionStay2D runs after fixed update
+        // this should be fine in our case
+        inContact = false;
     }
 
     void Balance()
@@ -126,14 +131,9 @@ public class PlayerMovement : MonoBehaviour
         return rot;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         inContact = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        inContact = false;
     }
 
     bool IsGrounded()
