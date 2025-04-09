@@ -37,16 +37,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(jumpTime >= 0f)
             jumpTime -= Time.deltaTime;
-
-        if (Keyboard.current.wKey.isPressed)
-            StartTurn(false);
-        else if (Keyboard.current.eKey.isPressed)
-            StartTurn(true);
-
-        if (Keyboard.current.wKey.wasReleasedThisFrame)
-            Jump(false);
-        else if (Keyboard.current.eKey.wasReleasedThisFrame)
-            Jump(true);
     }
 
     private void FixedUpdate()

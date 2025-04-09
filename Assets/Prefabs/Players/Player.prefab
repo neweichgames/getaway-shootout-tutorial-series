@@ -137,7 +137,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.67
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_LocalPosition.y
@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.739866
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_LocalRotation.x
@@ -161,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6727542
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 84.56
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
       propertyPath: m_Name
@@ -197,6 +197,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8068940078737759926}
+    - targetCorrespondingSourceObject: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6719370088817232073}
   m_SourcePrefab: {fileID: 100100000, guid: 99455c588705f45499c87150ba74f641, type: 3}
 --- !u!1 &6563025125695243796 stripped
 GameObject:
@@ -215,15 +218,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46715780898f10d4ba8cdd2f8c440bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxUprightAngle: 7.2
-  maxTurnAngle: 53.5
-  balancePower: 0.3
-  turnSpeed: 280
-  jumpPower: 11
   raycastSpots:
   - {fileID: 6696194197367958150}
   - {fileID: 1661586340536207748}
   - {fileID: 1603951327003417374}
+  balancePower: 0.3
+  maxBalancedAngle: 7.2
+  maxTurnSpeed: 280
+  lerpTurnTime: 0.5
+  maxTurnAngle: 53.5
+  jumpPower: 11
+  jumpCoolDown: 0.15
+--- !u!114 &6719370088817232073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6563025125695243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5526fa11b539ace4cb8310d33e07f1e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6565663319230843100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
