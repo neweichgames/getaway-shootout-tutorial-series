@@ -6,16 +6,19 @@ public class Gamemanager: MonoBehaviour
     public int numPlayers = 1;
 
     public GameObject playerObj;
+    public CameraManager cameraManager;
 
-
+    private Player[] players;
     private PlayerInputManager inputManager;
 
     private void Awake()
     {
+        players = new Player[numPlayers];
         inputManager = GetComponent<PlayerInputManager>();
 
         CreateInput();
         CreatePlayers();
+        CreateCameras();
     }
 
 
@@ -39,6 +42,18 @@ public class Gamemanager: MonoBehaviour
             GameObject player = Instantiate(playerObj);
             player.GetComponent<Player>().SetPlayerID(i);
             player.AddComponent<PlayerHumanController>();
+            players[i] = player.GetComponent<Player>();
         }
+    }
+
+    void CreateCameras()
+    {
+        Camera[] cameras = cameraManager.Initalize(numPlayers);
+        GetComponent<ParallaxManager>().cameras = cameras;
+    }
+
+    public Player GetPlayer(int playerID)
+    {
+        return players[playerID];
     }
 }
