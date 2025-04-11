@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,6 +44,8 @@ public class Gamemanager: MonoBehaviour
             player.GetComponent<Player>().SetPlayerID(i);
             player.AddComponent<PlayerHumanController>();
             players[i] = player.GetComponent<Player>();
+
+            players[i].onDeathEvent += OnPlayerDeath;
         }
     }
 
@@ -55,5 +58,25 @@ public class Gamemanager: MonoBehaviour
     public Player GetPlayer(int playerID)
     {
         return players[playerID];
+    }
+
+    void OnPlayerDeath(Player player)
+    {
+        StartCoroutine(RespawnPlayerLoop(player));
+    }
+
+    IEnumerator RespawnPlayerLoop(Player player)
+    {
+        yield return new WaitForSeconds(5f);
+        
+        // respawn player
+        player.Respawn();
+        player.transform.position = Vector3.zero;
+    }
+
+    private void OnDisable()
+    {
+        for(int i = 0; i < players.Length; i++)
+            players[i].onDeathEvent -= OnPlayerDeath;
     }
 }

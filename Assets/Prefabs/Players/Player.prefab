@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5526fa11b539ace4cb8310d33e07f1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdoll: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
 --- !u!4 &6565663319230843100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
