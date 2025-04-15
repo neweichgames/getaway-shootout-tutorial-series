@@ -200,6 +200,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6719370088817232073}
+    - targetCorrespondingSourceObject: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9087000583264892276}
   m_SourcePrefab: {fileID: 100100000, guid: 99455c588705f45499c87150ba74f641, type: 3}
 --- !u!1 &6563025125695243796 stripped
 GameObject:
@@ -242,6 +245,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ragdoll: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
+--- !u!114 &9087000583264892276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6563025125695243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9cb9653d8bbbd42b544b2ffaf1bde2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!4 &6565663319230843100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}

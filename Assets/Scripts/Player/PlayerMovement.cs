@@ -144,4 +144,16 @@ public class PlayerMovement : MonoBehaviour
 
         return false;
     }
+
+    private void OnDisable()
+    {
+        isTurning = false;
+        turningTime = 0f;
+        unbalancedTime = 0f;
+        jumpTime = 0f;
+
+        rb.constraints = RigidbodyConstraints2D.None;
+
+        inContact = false;
+    }
 }

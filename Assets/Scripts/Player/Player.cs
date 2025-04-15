@@ -15,6 +15,12 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        GetComponent<Health>().OnDeath += Die;
+    }
+
+    public void OnDestroy()
+    {
+        GetComponent<Health>().OnDeath -= Die;
     }
 
     public int GetPlayerID()
@@ -49,6 +55,8 @@ public class Player : MonoBehaviour
     public void Respawn()
     {
         gameObject.SetActive(true);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        GetComponent<Health>().SetMaxHealth();
         onRespawn?.Invoke();
     }
 

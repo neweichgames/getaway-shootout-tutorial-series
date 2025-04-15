@@ -41,6 +41,9 @@ public class PlayerHumanController : MonoBehaviour
         moveLeft.canceled -= OnMoveCallback;
         moveRight.started -= OnMoveCallback;
         moveRight.canceled -= OnMoveCallback;
+
+        isLeftDown = false;
+        isRightDown = false;
     }
 
     private void Update()
