@@ -74,6 +74,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1807861667691488, guid: 16cda2941bcb846fc87b70cd20b44784, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8333930867479157128}
+    - targetCorrespondingSourceObject: {fileID: 1807861667691488, guid: 16cda2941bcb846fc87b70cd20b44784, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9131739946682565955}
     - targetCorrespondingSourceObject: {fileID: 1311394834745316, guid: 16cda2941bcb846fc87b70cd20b44784, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7022649814969733110}
@@ -266,3 +269,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &9131739946682565955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720228851353456175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648154800c542ba4b818f1122f8b81ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transparency: 0.5

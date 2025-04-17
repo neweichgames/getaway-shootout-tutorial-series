@@ -23,7 +23,7 @@ public class Health : MonoBehaviour
 
         curHealth -= damage;
 
-        if (curHealth < 0)
+        if (curHealth <= 0)
             Die();
     }
 
