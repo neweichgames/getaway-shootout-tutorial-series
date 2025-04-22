@@ -44,6 +44,20 @@ public class Player : MonoBehaviour
         float armVel = transform.GetChild(0).GetChild(1).GetComponent<Rigidbody2D>().angularVelocity;
         r.transform.GetChild(0).GetChild(1).GetComponent<Rigidbody2D>().angularVelocity = armVel;
 
+        Transform holdSpot = transform.GetChild(0).GetChild(1).GetChild(1);
+        Transform ragdollHoldSpot = r.transform.GetChild(0).GetChild(1).GetChild(1);
+
+        foreach (Transform child in holdSpot)
+        {
+            Vector3 pos = child.localPosition;
+            Quaternion rot = child.localRotation;
+
+            child.parent = ragdollHoldSpot;
+            child.localPosition = pos;
+            child.localRotation = rot;
+        }
+            
+
         Destroy(r, 15f);
 
         gameObject.SetActive(false);

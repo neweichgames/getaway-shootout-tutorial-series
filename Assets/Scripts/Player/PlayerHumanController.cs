@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +5,7 @@ public class PlayerHumanController : MonoBehaviour
 {
 
     PlayerMovement pm;
+    PlayerUsableController pu;
     PlayerInput input;
 
     InputAction moveLeft;
@@ -18,6 +18,7 @@ public class PlayerHumanController : MonoBehaviour
     void Awake()
     {
         pm = GetComponent<PlayerMovement>();
+        pu = GetComponent<PlayerUsableController>();
 
         input = PlayerInput.GetPlayerByIndex(GetComponent<Player>().GetPlayerID());
         Debug.Log(GetComponent<Player>().GetPlayerID());
@@ -33,6 +34,8 @@ public class PlayerHumanController : MonoBehaviour
         moveLeft.canceled += OnMoveCallback;
         moveRight.started += OnMoveCallback;
         moveRight.canceled += OnMoveCallback;
+        powerUp.started += OnPowerUpCallback;
+        powerUp.canceled += OnPowerUpCallback;
     }
 
     private void OnDisable()
@@ -41,6 +44,8 @@ public class PlayerHumanController : MonoBehaviour
         moveLeft.canceled -= OnMoveCallback;
         moveRight.started -= OnMoveCallback;
         moveRight.canceled -= OnMoveCallback;
+        powerUp.started -= OnPowerUpCallback;
+        powerUp.canceled -= OnPowerUpCallback;
 
         isLeftDown = false;
         isRightDown = false;
@@ -74,5 +79,14 @@ public class PlayerHumanController : MonoBehaviour
             else
                 isLeftDown = false;
         }       
+    }
+
+    void OnPowerUpCallback(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            pu.Use();
+        else if (context.canceled)
+            pu.CancelUse();
+
     }
 }

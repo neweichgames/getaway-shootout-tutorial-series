@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Gun : MonoBehaviour
+public class Gun : Usable
 {
     public GunLine line;
 
@@ -31,12 +30,6 @@ public class Gun : MonoBehaviour
             this.startPower = startPower;
             this.endPower = endPower;
         }
-    }
-
-    void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            Use();
     }
 
     float HitObject(RaycastHit2D hit, float power)
@@ -84,7 +77,7 @@ public class Gun : MonoBehaviour
         return data.ToArray();
     }
 
-    public void Use()
+    public override void Use()
     {
         ShotData[] data = Shoot();
         
