@@ -1,11 +1,16 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class UsableController : MonoBehaviour
 {
+    public event Action OnDepleted;
+
     public int maxUses = 5;
     public float coolDown = 0.1f;
     public bool isAutomatic;
+    public float depletedDelay = 0.25f;
 
     private int curUses;
     private float curCoolDown;
@@ -45,5 +50,15 @@ public class UsableController : MonoBehaviour
         curUses--;
         curCoolDown = coolDown;
         hasCanceled = false;
+
+        if (curUses <= 0)
+            StartCoroutine(DepletedLoop());
+    }
+
+    IEnumerator DepletedLoop()
+    {
+        yield return new WaitForSeconds(depletedDelay);
+
+        OnDepleted?.Invoke();
     }
 }

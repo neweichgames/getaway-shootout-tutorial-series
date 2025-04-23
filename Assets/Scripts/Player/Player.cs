@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
 
     private int id;
     private Rigidbody2D rb;
+    private PlayerPowerUp powerUp;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         GetComponent<Health>().OnDeath += Die;
+        powerUp = GetComponent<PlayerPowerUp>();
     }
 
     public void OnDestroy()
@@ -79,6 +81,14 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Death")
         {
             Die();
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (powerUp.HasPowerUp() == false && collision.GetComponent<PowerUpBox>() != null)
+        {
+            powerUp.CreatePowerUp(collision.GetComponent<PowerUpBox>().GetPowerUpItem());
         }
     }
 }

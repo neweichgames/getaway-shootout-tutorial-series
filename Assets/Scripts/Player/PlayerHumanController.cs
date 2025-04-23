@@ -5,7 +5,7 @@ public class PlayerHumanController : MonoBehaviour
 {
 
     PlayerMovement pm;
-    PlayerUsableController pu;
+    PlayerPowerUp pu;
     PlayerInput input;
 
     InputAction moveLeft;
@@ -18,7 +18,7 @@ public class PlayerHumanController : MonoBehaviour
     void Awake()
     {
         pm = GetComponent<PlayerMovement>();
-        pu = GetComponent<PlayerUsableController>();
+        pu = GetComponent<PlayerPowerUp>();
 
         input = PlayerInput.GetPlayerByIndex(GetComponent<Player>().GetPlayerID());
         Debug.Log(GetComponent<Player>().GetPlayerID());
