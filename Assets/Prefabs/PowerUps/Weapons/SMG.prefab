@@ -24,12 +24,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5025769886537159744}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.621, y: 0.084, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.436, y: 0.0965, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 859599274596950716}
+  m_Father: {fileID: 3288697712218942525}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &6692546659547937138
 GameObject:
@@ -57,10 +57,11 @@ Transform:
   m_GameObject: {fileID: 6692546659547937138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.089, y: 0.064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6107609776199978811}
   m_Father: {fileID: 859599274596950716}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5176660353374920651
@@ -107,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 1832738513
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7040960777665541239, guid: ef8a0da3162ff014294b9a682f7ee098, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de0acef06ebab204b9e8005dc14aad28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,7 +131,7 @@ GameObject:
   - component: {fileID: 781189854799019893}
   - component: {fileID: 5846106814371339958}
   m_Layer: 0
-  m_Name: Sniper
+  m_Name: SMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,11 +146,10 @@ Transform:
   m_GameObject: {fileID: 7561588602900660694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.162, y: -0.344, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6107609776199978811}
   - {fileID: 3288697712218942525}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -170,12 +170,12 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 64
-  healthDamage: 50
-  rigidbodyForce: 5
-  range: 25
-  falloff: 1
+  healthDamage: 20
+  rigidbodyForce: 0.25
+  range: 15
+  falloff: 0.8
   sharpness: 0.5
-  stoppingPower: 0
+  stoppingPower: 0.1
 --- !u!114 &5846106814371339958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0ba593494d23941930382add339fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 40
-  coolDown: 0.5
+  maxUses: 16
+  coolDown: 0.1
   isAutomatic: 1

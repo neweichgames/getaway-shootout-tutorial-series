@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: ef8a0da3162ff014294b9a682f7ee098
+guid: a728f7cbf8e1bbc46a7988fd0bb195dc
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -7040960777665541239
-    second: Sniper_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sniper_0
+      name: mapBackground_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 20
-        height: 8
+        y: 27
+        width: 32
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +112,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 98b89c13a7b794e90800000000000000
-      internalID: -7040960777665541239
+      spriteID: cb53629002c7a99c0800000000000000
+      internalID: -3919684048638298692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mapBackground_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f71928619c82350e0800000000000000
+      internalID: -2282435742015516289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mapBackground_2
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 12
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eda0e876a96c9830800000000000000
+      internalID: 4079251526204304870
       vertices: []
       indices: 
       edges: []
@@ -135,7 +176,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sniper_0: -7040960777665541239
+      mapBackground_0: -3919684048638298692
+      mapBackground_1: -2282435742015516289
+      mapBackground_2: 4079251526204304870
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
