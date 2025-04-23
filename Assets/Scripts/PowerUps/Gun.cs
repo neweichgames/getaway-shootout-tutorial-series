@@ -12,13 +12,16 @@ public class Gun : Usable
     public float rigidbodyForce = 5f;
 
     public float range = 25f;
+    [Range(0f, 1f)]
     public float falloff = 1f;
 
+    [Range(0f, 1f)]
     public float sharpness = 0.5f;
 
     /// <summary>
     /// The minimum power necessary to go through an object.
     /// </summary>
+    [Range(0f, 1f)]
     public float stoppingPower;
 
     public class ShotData
