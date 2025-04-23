@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCoolDown = 0.15f;
 
     bool isTurning;
-    bool turnRight;
+    bool turnRight = true;
     float turningTime;
     float unbalancedTime;
     float jumpTime;
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         // TODO: Most likely control by a separate script and listen to OnTurnDirChange
         if (this.turnRight != turnRight)
         {
-            transform.GetChild(0).localScale = new Vector3(turnRight ? -1 : 1, 1, 1);
+            transform.GetChild(0).localScale = new Vector3(turnRight ? 1 : -1, 1, 1);
             transform.GetChild(0).GetChild(1).eulerAngles = new Vector3(0, 0, transform.GetChild(0).GetChild(1).eulerAngles.z * -1f);
         }
 
