@@ -16,6 +16,9 @@ public class Gun : Usable
 
     public float sharpness = 0.5f;
 
+    /// <summary>
+    /// The minimum power necessary to go through an object.
+    /// </summary>
     public float stoppingPower;
 
     public class ShotData
@@ -61,7 +64,7 @@ public class Gun : Usable
         foreach(RaycastHit2D hit in rcs)
         {
             float newPower = power - (hit.distance - prevDist) * falloff / range;
-            if(newPower <= stoppingPower) 
+            if(newPower <= 0f) 
                 break;
 
             data.Add(new ShotData(hit.distance, power, newPower));
@@ -73,7 +76,8 @@ public class Gun : Usable
             prevDist = hit.distance;
         }
 
-        data.Add(new ShotData(prevDist + (power - stoppingPower) * range / falloff, power, stoppingPower));
+        float endDist = Mathf.Min(prevDist + power * range / falloff, range);
+        data.Add(new ShotData(endDist, power, power - (endDist - prevDist) * falloff / range));
         return data.ToArray();
     }
 
