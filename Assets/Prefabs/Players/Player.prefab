@@ -210,6 +210,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8517569067784508660}
+    - targetCorrespondingSourceObject: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3493061681569466602}
+    - targetCorrespondingSourceObject: {fileID: 720228851353456175, guid: 99455c588705f45499c87150ba74f641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8911012854912000010}
   m_SourcePrefab: {fileID: 100100000, guid: 99455c588705f45499c87150ba74f641, type: 3}
 --- !u!1 &6563025125695243796 stripped
 GameObject:
@@ -277,8 +283,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c60131f7cd51ee44a31e8ee8fe3059b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3493061681569466602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6563025125695243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8e0c2477f1f5f489d027b8bd5199cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 20
+  priority: 1
+  offset: {x: 0, y: 1.375}
+--- !u!114 &8911012854912000010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6563025125695243796}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38d0f4adb84cc844181521bda8f3c39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivot: {fileID: 8918898099324158717}
 --- !u!4 &6565663319230843100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 718223844447305959, guid: 99455c588705f45499c87150ba74f641, type: 3}
+  m_PrefabInstance: {fileID: 5974667876755195963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &8918898099324158717 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 2966748824983423686, guid: 99455c588705f45499c87150ba74f641, type: 3}
   m_PrefabInstance: {fileID: 5974667876755195963}
   m_PrefabAsset: {fileID: 0}

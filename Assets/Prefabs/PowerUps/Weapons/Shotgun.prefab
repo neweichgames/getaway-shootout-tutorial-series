@@ -169,7 +169,7 @@ MonoBehaviour:
   shootSpot: {fileID: 6107609776199978811}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 68
   healthDamage: 125
   rigidbodyForce: 5
   range: 10
@@ -191,3 +191,4 @@ MonoBehaviour:
   maxUses: 3
   coolDown: 0.5
   isAutomatic: 1
+  depletedDelay: 0.25

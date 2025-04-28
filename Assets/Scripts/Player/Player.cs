@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
         float armVel = transform.GetChild(0).GetChild(1).GetComponent<Rigidbody2D>().angularVelocity;
         r.transform.GetChild(0).GetChild(1).GetComponent<Rigidbody2D>().angularVelocity = armVel;
 
+        r.transform.GetChild(0).localScale = transform.GetChild(0).localScale;
+
         Transform holdSpot = transform.GetChild(0).GetChild(1).GetChild(1);
         Transform ragdollHoldSpot = r.transform.GetChild(0).GetChild(1).GetChild(1);
 

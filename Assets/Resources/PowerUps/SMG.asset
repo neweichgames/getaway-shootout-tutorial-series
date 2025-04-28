@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpObject: {fileID: 7561588602900660694, guid: 1c94db61470242d418364a4572cd0904, type: 3}
   icon: {fileID: 21300000, guid: de0acef06ebab204b9e8005dc14aad28, type: 3}
+  findTarget: 1

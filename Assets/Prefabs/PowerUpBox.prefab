@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4391872372149795132}
   - component: {fileID: 1144414297714021746}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PowerUpGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6304820487175947148}
   - component: {fileID: 7053820296612716249}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 7366848826601345801}
   - component: {fileID: 8268305145231636679}
   - component: {fileID: 6937568973583023843}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PowerUpBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
