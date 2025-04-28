@@ -89,7 +89,9 @@ public class PlayerMovement : MonoBehaviour
         if (this.turnRight != turnRight)
         {
             transform.GetChild(0).localScale = new Vector3(turnRight ? 1 : -1, 1, 1);
-            transform.GetChild(0).GetChild(1).eulerAngles = new Vector3(0, 0, transform.GetChild(0).GetChild(1).eulerAngles.z * -1f);
+            transform.GetChild(0).GetChild(1).eulerAngles = new Vector3(0, 0, (transform.GetChild(0).GetChild(1).eulerAngles.z + 90f) * -1f - 90f);
+            HingeJoint2D h = transform.GetChild(0).GetChild(1).GetComponent<HingeJoint2D>();
+            h.connectedAnchor = new Vector2(-h.connectedAnchor.x, h.connectedAnchor.y);
         }
 
         this.turnRight = turnRight;
