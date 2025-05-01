@@ -22,7 +22,7 @@ public class TargetFinder : MonoBehaviour
 
         if (target != null)
         {
-            float scaleX = transform.GetChild(0).localScale.x;
+            float scaleX = pivot.transform.lossyScale.x;
             Vector2 diff = (target.GetTargetPosition() - pivot.position) * scaleX;
             float targetRotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             pivot.rotation = targetRotation;
