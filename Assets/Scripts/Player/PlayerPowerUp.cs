@@ -2,20 +2,19 @@ using UnityEngine;
 
 public class PlayerPowerUp : MonoBehaviour
 {
-
+    private Player ourPlayer;
     private bool isUsing;
-    private UsableController controller;
+    private Usable usable;
 
-    void Start()
+    private void Start()
     {
-        controller = GetComponentInChildren<UsableController>();
+        ourPlayer = GetComponent<Player>();
     }
 
-    
     void Update()
     {
-        if(controller != null && isUsing)
-            controller.Use();
+        if(usable != null && isUsing)
+            usable.Use(ourPlayer);
     }
 
     public void Use()
@@ -25,8 +24,8 @@ public class PlayerPowerUp : MonoBehaviour
 
     public void CancelUse()
     {
-        if(controller != null)
-            controller.CancelUse();
+        if(usable != null)
+            usable.CancelUse();
         
         isUsing = false;
     }
@@ -39,27 +38,35 @@ public class PlayerPowerUp : MonoBehaviour
 
     public void CreatePowerUp(PowerUpItem powerUp)
     {
-        controller = Instantiate(powerUp.powerUpObject, transform.GetChild(0).GetChild(1).GetChild(1)).GetComponent<UsableController>();
-        controller.OnDepleted += OnPowerUpDepleted;
+        GameObject usableObj = Instantiate(powerUp.powerUpObject, transform.GetChild(0).GetChild(1).GetChild(1));
+        usable = usableObj.GetComponent<Usable>();
 
+        if (usable == null)
+        {
+            Debug.LogError("Error: Power up item must have component of type Usable!");
+            Destroy(usableObj);
+            return;
+        }
+
+        usable.OnDepleted += OnPowerUpDepleted;
         GetComponent<TargetFinder>().ActivateFinder(powerUp.findTarget);
     }
 
     public bool HasPowerUp()
     {
-        return controller != null;
+        return usable != null;
     }
 
     void OnPowerUpDepleted()
     {
-        controller.OnDepleted -= OnPowerUpDepleted;
-        Destroy(controller.gameObject);
+        usable.OnDepleted -= OnPowerUpDepleted;
+        Destroy(usable.gameObject);
         ResetPowerUp();
     }
 
     void ResetPowerUp()
     {
-        controller = null;
+        usable = null;
         GetComponent<TargetFinder>().ActivateFinder(false);
     }
 }

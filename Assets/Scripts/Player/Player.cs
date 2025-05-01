@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     {
         // Game pool object system in future?
         GameObject r = Instantiate(ragdoll, transform.position, transform.rotation);
-        
+
         r.GetComponent<Rigidbody2D>().linearVelocity = rb.linearVelocity;
         r.GetComponent<Rigidbody2D>().angularVelocity = rb.angularVelocity;
 

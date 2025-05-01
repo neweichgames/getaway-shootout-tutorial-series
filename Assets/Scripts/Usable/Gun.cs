@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : Usable
+public class Gun : AmmoUsable
 {
     public GunLine line;
 
@@ -56,7 +56,7 @@ public class Gun : Usable
         return 0;
     }
 
-    ShotData[] Shoot()
+    ShotData[] Shoot(Player ourPlayer)
     {
         RaycastHit2D[] rcs = Physics2D.RaycastAll(shootSpot.position, shootSpot.up, range, ~ignoreMask);
         List<ShotData> data = new List<ShotData>(rcs.Length + 1);
@@ -64,14 +64,23 @@ public class Gun : Usable
         float power = 1f;
         float prevDist = 0f;
 
+        // Loop through all objects that our bullet raycast hit
         foreach(RaycastHit2D hit in rcs)
         {
+            // Ignore our own player
+            Player hitPlayer = hit.transform.GetComponent<Player>();
+            if (hitPlayer != null && hitPlayer.Equals(ourPlayer))
+                continue;
+
+            // Calculate falloff power
             float newPower = power - (hit.distance - prevDist) * falloff / range;
             if(newPower <= 0f) 
                 break;
 
+            // Bullet has reached object with power ... add object to hit list
             data.Add(new ShotData(hit.distance, power, newPower));
 
+            // Check if bullet can go through the object
             power = newPower * sharpness * HitObject(hit, power);
             if (newPower <= stoppingPower)
                 return data.ToArray();
@@ -84,11 +93,13 @@ public class Gun : Usable
         return data.ToArray();
     }
 
-    public override void Use()
+    protected override bool UseObject(Player user)
     {
-        ShotData[] data = Shoot();
+        ShotData[] data = Shoot(user);
         
         GunLine gl = Instantiate(line.gameObject).GetComponent<GunLine>();
         gl.CreateLine(data, shootSpot);
+
+        return true;
     }
 }

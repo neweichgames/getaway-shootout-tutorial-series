@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 859599274596950716}
   - component: {fileID: 781189854799019893}
-  - component: {fileID: 5846106814371339958}
   m_Layer: 0
   m_Name: SMG
   m_TagString: Untagged
@@ -165,30 +164,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fce269483c4583459bd5624ccf475c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startAmmo: 16
+  ammoClipSize: 4
+  useCoolDown: 0.1
+  clipReloadTime: 0.25
+  isAutomatic: 1
   line: {fileID: 7609226633422425405, guid: 2f935b13dfdc217478fe23450cf0bad8, type: 3}
   shootSpot: {fileID: 6107609776199978811}
   ignoreMask:
     serializedVersion: 2
     m_Bits: 68
   healthDamage: 20
-  rigidbodyForce: 0.25
+  rigidbodyForce: 0.5
   range: 15
   falloff: 0.8
   sharpness: 0.5
   stoppingPower: 0.1
---- !u!114 &5846106814371339958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7561588602900660694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b0ba593494d23941930382add339fef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxUses: 16
-  coolDown: 0.1
-  isAutomatic: 1
-  depletedDelay: 0.25
