@@ -40,15 +40,14 @@ public class Gun : AmmoUsable
 
     float HitObject(RaycastHit2D hit, float power)
     {
-        Health health = hit.collider.GetComponent<Health>();
-        if (health != null)
-            health.Damage(healthDamage * power);
-
         Rigidbody2D rigid = hit.collider.GetComponent<Rigidbody2D>();
         if (rigid != null)
             rigid.AddForceAtPosition(shootSpot.up * rigidbodyForce * power, hit.point, ForceMode2D.Impulse);
 
-        // More interactions here
+        Health health = hit.collider.GetComponent<Health>();
+        if (health != null)
+            health.Damage(healthDamage * power);
+
         ObjectProperties props = hit.collider.GetComponent<ObjectProperties>();
         if (props != null)
             return props.transparency;
