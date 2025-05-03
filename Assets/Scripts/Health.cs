@@ -49,7 +49,7 @@ public class Health : MonoBehaviour
         curHealth += amount;
         
         if(capHealth)
-            curHealth = Mathf.Max(curHealth, maxHealth);
+            curHealth = Mathf.Min(curHealth, maxHealth);
     }
 
     public void SetInvincible(bool invincible)
