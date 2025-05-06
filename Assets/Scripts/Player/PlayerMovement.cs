@@ -27,10 +27,12 @@ public class PlayerMovement : MonoBehaviour
     bool inContact;
 
     Rigidbody2D rb;
+    PlayerBody body;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        body = GetComponent<PlayerBody>();
     }
 
     private void Update()
@@ -84,15 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        // Flip character to turn direction
-        // TODO: Most likely control by a separate script and listen to OnTurnDirChange
-        if (this.turnRight != turnRight)
-        {
-            transform.GetChild(0).localScale = new Vector3(turnRight ? 1 : -1, 1, 1);
-            transform.GetChild(0).GetChild(1).localEulerAngles = new Vector3(0, 0, (transform.GetChild(0).GetChild(1).localEulerAngles.z + 90f) * -1f - 90f);
-            HingeJoint2D h = transform.GetChild(0).GetChild(1).GetComponent<HingeJoint2D>();
-            h.connectedAnchor = new Vector2(-h.connectedAnchor.x, h.connectedAnchor.y);
-        }
+        body.SetDirection(turnRight);
 
         this.turnRight = turnRight;
         isTurning = true;

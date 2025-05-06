@@ -16,7 +16,7 @@ public abstract class AmmoUsable : Usable
     private float curCoolDown;
     private bool hasCanceled = true;
 
-    private void Start()
+    protected virtual void Start()
     {
         curClipAmmo = Mathf.Min(startAmmo, ammoClipSize);
         curExtraAmmo = startAmmo - curClipAmmo;
@@ -62,7 +62,7 @@ public abstract class AmmoUsable : Usable
         StartCoroutine(ReloadLoop());
     }
 
-    void Reload()
+    protected virtual void Reload()
     {
         int reloadAmount = Mathf.Min(ammoClipSize - curClipAmmo, curExtraAmmo);
         curExtraAmmo -= reloadAmount;

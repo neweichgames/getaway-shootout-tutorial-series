@@ -10,14 +10,12 @@ public class Player : MonoBehaviour
     public event Action onRespawn;
 
     private int id;
-    private Rigidbody2D rb;
-    private PlayerPowerUp powerUp;
+    private PlayerBody body;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        body = GetComponent<PlayerBody>();
         GetComponent<Health>().OnDeath += Die;
-        powerUp = GetComponent<PlayerPowerUp>();
     }
 
     public void OnDestroy()
@@ -35,45 +33,31 @@ public class Player : MonoBehaviour
         this.id = id;
     }
 
+    public void TeleportPlayer(PlayerBody other)
+    {
+        body.SwapWithOther(other);
+
+        // In future handle other components to be copied here (such as player zipline) by creating an onPlayerTeleport action
+    }
+
     void Die()
     {
         // Game pool object system in future?
-        GameObject r = Instantiate(ragdoll, transform.position, transform.rotation);
+        PlayerBody ragdollBody = Instantiate(ragdoll, transform.position, transform.rotation).GetComponent<PlayerBody>();
+        ragdollBody.SetFromOther(body);
 
-        r.GetComponent<Rigidbody2D>().linearVelocity = rb.linearVelocity;
-        r.GetComponent<Rigidbody2D>().angularVelocity = rb.angularVelocity;
-
-        float armVel = transform.GetChild(0).GetChild(1).GetComponent<Rigidbody2D>().angularVelocity;
-        r.transform.GetChild(0).GetChild(1).GetComponent<Rigidbody2D>().angularVelocity = armVel;
-
-        r.transform.GetChild(0).localScale = transform.GetChild(0).localScale;
-
-        Transform holdSpot = transform.GetChild(0).GetChild(1).GetChild(1);
-        Transform ragdollHoldSpot = r.transform.GetChild(0).GetChild(1).GetChild(1);
-
-        foreach (Transform child in holdSpot)
-        {
-            Vector3 pos = child.localPosition;
-            Quaternion rot = child.localRotation;
-
-            child.parent = ragdollHoldSpot;
-            child.localPosition = pos;
-            child.localRotation = rot;
-        }
-            
-
-        Destroy(r, 15f);
+        Destroy(ragdollBody.gameObject, 15f);
 
         gameObject.SetActive(false);
 
-        onRagdollCreateEvent?.Invoke(r.transform);
+        onRagdollCreateEvent?.Invoke(ragdollBody.transform);
         onDeathEvent?.Invoke(this);
     }
 
     public void Respawn()
     {
         gameObject.SetActive(true);
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        body.SetBody(Vector2.zero, 0f, 0f);
         GetComponent<Health>().SetMaxHealth();
         onRespawn?.Invoke();
     }
@@ -83,14 +67,6 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Death")
         {
             Die();
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (powerUp.HasPowerUp() == false && collision.GetComponent<PowerUpBox>() != null)
-        {
-            powerUp.CreatePowerUp(collision.GetComponent<PowerUpBox>().GetPowerUpItem());
         }
     }
 }

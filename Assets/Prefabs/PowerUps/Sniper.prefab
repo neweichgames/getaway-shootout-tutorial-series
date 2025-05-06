@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5025769886537159744}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.592, y: 0.164, z: 0}
+  m_LocalPosition: {x: 0.62600005, y: 0.099, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 6692546659547937138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.435, y: 0.062, z: 0}
+  m_LocalPosition: {x: 0.2191, y: 0.0652, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 1832738513
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a728f7cbf8e1bbc46a7988fd0bb195dc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef8a0da3162ff014294b9a682f7ee098, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,9 +128,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 859599274596950716}
+  - component: {fileID: -1178855284112796518}
   - component: {fileID: 781189854799019893}
   m_Layer: 0
-  m_Name: Shotgun
+  m_Name: Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,6 +153,24 @@ Transform:
   - {fileID: 3288697712218942525}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1178855284112796518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7561588602900660694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce9414e1e2a6d44196632b068cfe73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAmmo: 2
+  ammoClipSize: 2
+  useCoolDown: 1
+  clipReloadTime: 0
+  isAutomatic: 0
+  shootSpot: {fileID: 6107609776199978811}
 --- !u!114 &781189854799019893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,19 +183,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fce269483c4583459bd5624ccf475c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startAmmo: 3
-  ammoClipSize: 3
-  useCoolDown: 0.5
-  clipReloadTime: 0
-  isAutomatic: 0
+  friendlyFire: 0
   line: {fileID: 7609226633422425405, guid: 2f935b13dfdc217478fe23450cf0bad8, type: 3}
-  shootSpot: {fileID: 6107609776199978811}
   ignoreMask:
     serializedVersion: 2
     m_Bits: 68
-  healthDamage: 125
-  rigidbodyForce: 5
-  range: 10
-  falloff: 1
-  sharpness: 0.25
+  healthDamage: 300
+  rigidbodyForce: 7.5
+  range: 25
+  falloff: 0.2
+  sharpness: 1
   stoppingPower: 0.1

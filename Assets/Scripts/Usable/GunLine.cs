@@ -5,13 +5,13 @@ public class GunLine : MonoBehaviour
     public LineRenderer lineObj;
     public float fadeTime = 0.25f;
 
-    public void CreateLine(Gun.ShotData[] data, Transform shootSpot)
+    public void CreateLine(GunBullet.ShotData[] data, Vector2 startPos, Vector2 dir)
     {
-        Vector2 prevPos = shootSpot.position;
+        Vector2 prevPos = startPos;
 
-        foreach (Gun.ShotData s in data)
+        foreach (GunBullet.ShotData s in data)
         {
-            Vector2 pos = shootSpot.position + shootSpot.up * s.dist;
+            Vector2 pos = startPos + dir * s.dist;
             LineRenderer l = Instantiate(lineObj, Vector2.zero, Quaternion.identity, transform).GetComponent<LineRenderer>();
 
             l.SetPosition(0, prevPos);

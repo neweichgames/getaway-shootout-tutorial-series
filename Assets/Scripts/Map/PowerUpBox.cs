@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PowerUpBox : MonoBehaviour
 {
+    public PowerUpItem overrideItem;
+
     private static PowerUpItem[] items;
 
     private PowerUpItem curItem;
@@ -16,7 +18,7 @@ public class PowerUpBox : MonoBehaviour
 
     private void Start()
     {
-        SetRandomItem();
+        SetItem();
     }
 
     public PowerUpItem GetPowerUpItem()
@@ -28,9 +30,13 @@ public class PowerUpBox : MonoBehaviour
         return curItem;
     }
 
-    void SetRandomItem()
+    void SetItem()
     {
-        curItem = items[Random.Range(0, items.Length)];
+        if(overrideItem == null)
+            curItem = items[Random.Range(0, items.Length)];
+        else
+            curItem = overrideItem;
+
         transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = curItem.icon;
     }
 
@@ -38,7 +44,7 @@ public class PowerUpBox : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
 
-        SetRandomItem();
+        SetItem();
         GetComponent<Collider2D>().enabled = true;
         transform.GetChild(0).gameObject.SetActive(true);
     }

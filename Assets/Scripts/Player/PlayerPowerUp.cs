@@ -1,14 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerPowerUp : MonoBehaviour
 {
     private Player ourPlayer;
     private bool isUsing;
+    
+    private PowerUpItem powerUpItem;
     private Usable usable;
+    private PlayerBody body;
 
     private void Start()
     {
         ourPlayer = GetComponent<Player>();
+        body = GetComponent<PlayerBody>();
     }
 
     void Update()
@@ -19,7 +24,8 @@ public class PlayerPowerUp : MonoBehaviour
 
     public void Use()
     {
-        isUsing = true;
+        if(usable != null)
+            isUsing = true;
     }
 
     public void CancelUse()
@@ -38,7 +44,7 @@ public class PlayerPowerUp : MonoBehaviour
 
     public void CreatePowerUp(PowerUpItem powerUp)
     {
-        GameObject usableObj = Instantiate(powerUp.powerUpObject, transform.GetChild(0).GetChild(1).GetChild(1));
+        GameObject usableObj = Instantiate(powerUp.powerUpObject, body.handItemHolder);
         usable = usableObj.GetComponent<Usable>();
 
         if (usable == null)
@@ -50,6 +56,8 @@ public class PlayerPowerUp : MonoBehaviour
 
         usable.OnDepleted += OnPowerUpDepleted;
         GetComponent<TargetFinder>().ActivateFinder(powerUp.findTarget);
+        
+        powerUpItem = powerUp;
     }
 
     public bool HasPowerUp()
@@ -59,14 +67,33 @@ public class PlayerPowerUp : MonoBehaviour
 
     void OnPowerUpDepleted()
     {
-        usable.OnDepleted -= OnPowerUpDepleted;
-        Destroy(usable.gameObject);
-        ResetPowerUp();
+        StartCoroutine(ResetPowerUpLoop());
+    }
+
+    IEnumerator ResetPowerUpLoop()
+    {
+        yield return new WaitForSeconds(powerUpItem.destroyDelay);
+
+        if (usable != null)
+        {
+            usable.OnDepleted -= OnPowerUpDepleted;
+            Destroy(usable.gameObject);
+
+            ResetPowerUp();
+        }   
     }
 
     void ResetPowerUp()
     {
         usable = null;
+        powerUpItem = null;
+        isUsing = false;
         GetComponent<TargetFinder>().ActivateFinder(false);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (HasPowerUp() == false && collision.GetComponent<PowerUpBox>() != null)
+            CreatePowerUp(collision.GetComponent<PowerUpBox>().GetPowerUpItem());
     }
 }
