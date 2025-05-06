@@ -25,7 +25,9 @@ public class TargetFinder : MonoBehaviour
             float scaleX = pivot.transform.lossyScale.x;
             Vector2 diff = (target.GetTargetPosition() - pivot.position) * scaleX;
             float targetRotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            pivot.rotation = targetRotation;
+            // Note: This code is currently framerate dependent. In future replace code with something that
+            // isn't frame rate dependent!
+            pivot.rotation = Mathf.LerpAngle(pivot.rotation, targetRotation, Time.fixedDeltaTime * 5f);
         }
     }
 
