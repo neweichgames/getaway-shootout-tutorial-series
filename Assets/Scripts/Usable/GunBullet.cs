@@ -45,7 +45,7 @@ public class GunBullet : Weapon
 
         Health health = hit.collider.GetComponent<Health>();
         if (health != null)
-            health.Damage(healthDamage * power);
+            DamageHealth(health, healthDamage, hit.point, dir);
 
         ObjectProperties props = hit.collider.GetComponent<ObjectProperties>();
         if (props != null)

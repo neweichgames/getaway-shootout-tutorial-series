@@ -19,4 +19,14 @@ public abstract class Weapon : MonoBehaviour
     {
         return friendlyFire || owner == null || !owner.gameObject.Equals(obj);
     }
+
+    protected void DamageHealth(Health health, float amount)
+    {
+        health.Damage(new Health.DamageInfo(amount, owner, this));
+    }
+
+    protected void DamageHealth(Health health, float amount, Vector2 hitPoint, Vector2 hitDirection)
+    {
+        health.Damage(new Health.DamageInfo(amount, owner, this, new Health.HitInfo(hitPoint, hitDirection)));
+    }
 }

@@ -62,7 +62,7 @@ public class Explosive : Weapon
 
         Health h = hit.collider.GetComponent<Health>();
         if (h != null)
-            h.Damage(healthDamage * power);
+            DamageHealth(h, healthDamage);
     }
 
     void CheckExplosion(GameObject target, Vector2 targetPos)

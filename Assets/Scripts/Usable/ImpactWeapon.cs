@@ -8,7 +8,7 @@ public class ImpactWeapon : Weapon
     {
         Health h = other.GetComponent<Health>();
         if (h != null)
-            h.Damage(healthDamage);
+            DamageHealth(h, healthDamage);
     }
 
     void DisableWeapon(GameObject other)
