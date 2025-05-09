@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class Usable : MonoBehaviour
 {
     public event Action OnDepleted;
+    public event Action OnUse;
 
     private bool isDepleted;
 
@@ -14,10 +15,10 @@ public abstract class Usable : MonoBehaviour
 
         if (UseObject(user))
         {
-            Depleted();
+            OnUse?.Invoke();
             return true;
         }
-
+        
         return false;
     }
 

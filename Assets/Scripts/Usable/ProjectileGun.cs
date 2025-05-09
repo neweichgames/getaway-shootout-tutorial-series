@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProjectileGun : AmmoUsable
+public class ProjectileGun : Gun
 {
     public GameObject projectile;
     public Transform shootSpot;
@@ -26,20 +26,7 @@ public class ProjectileGun : AmmoUsable
     protected override bool UseObject(Player user)
     {
         Shoot(user);
-        ActivateSprites(false);
 
         return true;
-    }
-
-    protected override void Reload()
-    {
-        base.Reload();
-        ActivateSprites(true);
-    }
-
-    void ActivateSprites(bool a)
-    {
-        foreach(Transform t in shootSpot)
-            t.gameObject.SetActive(a);
     }
 }

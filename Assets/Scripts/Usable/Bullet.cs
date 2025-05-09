@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunBullet : Weapon
+public class Bullet : Weapon
 {
     public GunLine line;
 

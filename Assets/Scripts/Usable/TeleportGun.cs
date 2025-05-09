@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TeleportGun : AmmoUsable
+public class TeleportGun : Gun
 {
     public GunLine line;
     public LayerMask ignoreMask = 1 << 2;
@@ -25,7 +25,7 @@ public class TeleportGun : AmmoUsable
         PlayerHitInfo playerHit = Shoot(user);
 
         GunLine gl = Instantiate(line.gameObject).GetComponent<GunLine>();
-        gl.CreateLine(new GunBullet.ShotData[] { new GunBullet.ShotData(playerHit.hitDist, 1f, 1f - playerHit.hitDist / range) }, shootSpot.position, shootSpot.up);
+        gl.CreateLine(new Bullet.ShotData[] { new Bullet.ShotData(playerHit.hitDist, 1f, 1f - playerHit.hitDist / range) }, shootSpot.position, shootSpot.up);
 
         if (playerHit.player != null)
             user.TeleportPlayer(playerHit.player);

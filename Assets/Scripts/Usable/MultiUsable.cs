@@ -32,7 +32,7 @@ public abstract class MultiUsable : Usable
         if (curUses <= 0 || curCoolDown > 0 || (!isAutomatic && !hasCanceled))
             return false;
 
-        if(UseObject(user))
+        if(!base.Use(user)) 
             return false;
 
         curUses--;

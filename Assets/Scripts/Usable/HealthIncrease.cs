@@ -7,6 +7,7 @@ public class HealthIncrease : Usable
     protected override bool UseObject(Player user)
     {
         user.GetComponent<Health>().IncreaseHealth(amount);
+        Depleted();
         return true;
     }
 }

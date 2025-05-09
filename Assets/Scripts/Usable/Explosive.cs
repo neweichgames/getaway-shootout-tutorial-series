@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,7 +23,9 @@ public class Explosive : Weapon
     public float stoppingPower;
 
     public bool destoryOnExplode;
-    public UnityEvent OnExplode;
+
+    // This in the future can have information about explosion (ex. objects hit etc...)
+    public event Action OnExplode;
 
     private void OnDrawGizmosSelected()
     {

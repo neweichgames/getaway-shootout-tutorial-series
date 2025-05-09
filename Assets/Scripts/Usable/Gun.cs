@@ -1,22 +1,88 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
-[RequireComponent (typeof(GunBullet))]
-public class Gun : AmmoUsable
+public abstract class Gun : Usable
 {
-    public Transform shootSpot;
-    private GunBullet gun;
+    public int startAmmo = 5;
+    public int ammoClipSize = 5;
 
-    protected override void Start()
+    public float useCoolDown = 0.1f;
+    public float clipReloadTime = 0f;
+
+    public bool isAutomatic;
+
+    private int curClipAmmo;
+    private int curExtraAmmo;
+    private float curCoolDown;
+    private bool hasCanceled = true;
+
+    public event Action OnReload;
+
+    protected virtual void Start()
     {
-        base.Start();
-
-        gun = GetComponent<GunBullet>();
+        curClipAmmo = Mathf.Min(startAmmo, ammoClipSize);
+        curExtraAmmo = startAmmo - curClipAmmo;
     }
 
-    protected override bool UseObject(Player user)
+    void Update()
     {
-        gun.SetOwner(user);
-        gun.Fire(shootSpot);
+        if (curCoolDown >= 0f)
+            curCoolDown -= Time.deltaTime;
+    }
+
+    public override void CancelUse()
+    {
+        hasCanceled = true;
+    }
+
+    public override bool Use(Player user)
+    {
+        if (curClipAmmo <= 0 || curCoolDown > 0 || (!isAutomatic && !hasCanceled))
+            return false;
+
+        if(!base.Use(user))
+            return false;
+
+        curClipAmmo--;
+        curCoolDown = useCoolDown;
+        hasCanceled = false;
+
+
+        if (curClipAmmo <= 0)
+        {
+            if (curExtraAmmo == 0)
+                Depleted();
+            else
+                StartReload();
+        }
+
         return true;
+    }
+
+    void StartReload()
+    {
+        StartCoroutine(ReloadLoop());
+    }
+
+    protected virtual void Reload()
+    {
+        int reloadAmount = Mathf.Min(ammoClipSize - curClipAmmo, curExtraAmmo);
+        curExtraAmmo -= reloadAmount;
+        curClipAmmo += reloadAmount;
+
+        OnReload?.Invoke();
+    }
+
+    IEnumerator ReloadLoop()
+    {
+        yield return new WaitForSeconds(clipReloadTime);
+
+        Reload();
+    }
+
+    public int GetCurAmmo()
+    {
+        return curClipAmmo;
     }
 }
