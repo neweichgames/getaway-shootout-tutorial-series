@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Class for controlling player power ups.
+/// </summary>
 public class PlayerPowerUp : MonoBehaviour
 {
     private Player ourPlayer;
@@ -42,6 +45,10 @@ public class PlayerPowerUp : MonoBehaviour
         ResetPowerUp();
     }
 
+    /// <summary>
+    /// Create new power up object for player to hold from power up item.
+    /// </summary>
+    /// <param name="powerUp">Power up item for player to create power up object.</param>
     public void CreatePowerUp(PowerUpItem powerUp)
     {
         GameObject usableObj = Instantiate(powerUp.powerUpObject, body.handItemHolder);

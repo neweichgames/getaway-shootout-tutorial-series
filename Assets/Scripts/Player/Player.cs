@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Class for player identity and core player functions.
+/// </summary>
 public class Player : MonoBehaviour
 {
     public GameObject ragdoll;

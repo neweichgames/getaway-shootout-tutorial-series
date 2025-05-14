@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// TODO: Class most likely can be refactored to be simplier.
+/// <summary>
+/// Class for managing player input.
+/// </summary>
 public class PlayerHumanController : MonoBehaviour
 {
 

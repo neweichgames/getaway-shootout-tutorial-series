@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class to create gun effects. This should most likely change to how you effects you want on your gun.
+/// </summary>
 [RequireComponent (typeof(Gun))]
 public class GunFX : MonoBehaviour
 {

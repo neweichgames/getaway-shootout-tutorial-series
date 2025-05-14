@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class to create explosion effects. This should most likely change to how you want the explosion to look.
+/// </summary>
 [RequireComponent(typeof(Explosive))]
 public class ExplosiveFX : MonoBehaviour
 {

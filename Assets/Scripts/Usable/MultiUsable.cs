@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public abstract class MultiUsable : Usable
@@ -41,7 +40,7 @@ public abstract class MultiUsable : Usable
 
         
         if (curUses <= 0)
-            Depleted();
+            Deplete();
 
         return true;
     }

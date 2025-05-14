@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Class to create bullet effects. This should most likely change to how you want the bullets to look.
+/// </summary>
 [RequireComponent (typeof(Bullet))]
 public class BulletFX : MonoBehaviour
 {

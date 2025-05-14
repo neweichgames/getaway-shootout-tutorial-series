@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Interface for all firable bullets.
+/// </summary>
 public interface Bullet
 {
     public event Action<Data> OnFire;

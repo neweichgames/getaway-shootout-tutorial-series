@@ -68,11 +68,19 @@ public class Parallax : MonoBehaviour
         transform.position = new Vector3(paralaxPos.x + xOffset, paralaxPos.y + yOffset, transform.position.z);
     }
 
+    /// <summary>
+    /// Set the camera of the parallax to track.
+    /// </summary>
+    /// <param name="cam">Camera to track.</param>
     public void SetCam(Transform cam)
     {
         cameraTransform = cam;
     }
 
+    /// <summary>
+    /// Get the current camera parallax is tracking.
+    /// </summary>
+    /// <returns>Current tracking camera. Default is main camera.</returns>
     public Transform GetCam()
     {
         if (cameraTransform == null)

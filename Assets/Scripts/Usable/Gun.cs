@@ -52,7 +52,7 @@ public abstract class Gun : Usable
         if (curClipAmmo <= 0)
         {
             if (curExtraAmmo == 0)
-                Depleted();
+                Deplete();
             else
                 StartReload();
         }

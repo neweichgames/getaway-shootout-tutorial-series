@@ -26,7 +26,7 @@ public abstract class Usable : MonoBehaviour
 
     protected abstract bool UseObject(Player user);
 
-    protected void Depleted()
+    protected void Deplete()
     {
         OnDepleted?.Invoke();
         isDepleted = true;

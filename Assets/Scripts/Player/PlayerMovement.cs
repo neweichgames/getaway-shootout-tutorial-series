@@ -1,21 +1,44 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
+/// <summary>
+/// Class for controlling player movement.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     public Transform[] raycastSpots;
 
     [Header("Balance")]
-    public float balancePower = 6.075f;
+    /// <summary>
+    /// Force to apply when balancing player.
+    /// </summary>
+    public float balanceForce = 6.075f;
+    /// <summary>
+    /// Maximum absolute angle of player in balance. Outside this angle player will actively try to balance.
+    /// </summary>
     public float maxBalancedAngle = 7.2f;
 
     [Header("Turn")]
+    /// <summary>
+    /// Maximum turn speed to rotate player when turning.
+    /// </summary>
     public float maxTurnSpeed = 280;
+    /// <summary>
+    /// Time it takes to reach maximum turn speed.
+    /// </summary>
     public float lerpTurnTime = 0.5f;
+    /// <summary>
+    /// Maximum angle that player can turn before stopping.
+    /// </summary>
     public float maxTurnAngle = 53.5f;
 
     [Header("Jump")]
-    public float jumpPower = 11;
+    /// <summary>
+    /// Force applied when jumping.
+    /// </summary>
+    public float jumpForce = 11;
+    /// <summary>
+    /// Cool down time before player can jump again.
+    /// </summary>
     public float jumpCoolDown = 0.15f;
 
     bool isTurning;
@@ -43,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Turn body if turning ... otherwise default to always balancing the player
         if (isTurning)
             Turn();
         else
@@ -58,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float rotation = GetRotation();
 
+        // Check if we are outside our maximum balanced zone ... if so and if in contact, apply force to make player upright
         if(Mathf.Abs(rotation) > maxBalancedAngle)
         {
             if (inContact)
@@ -66,11 +91,12 @@ public class PlayerMovement : MonoBehaviour
                 float extraForceMult = Mathf.Clamp(Mathf.Ceil(unbalancedTime / 1.2f), 1, 4);
                 float directionPower = Mathf.Clamp(-rotation, -90f, 90f);
 
-                rb.AddTorque(directionPower * balancePower * extraForceMult);
+                rb.AddTorque(directionPower * balanceForce * extraForceMult);
             }
         }
         else
         {
+            // Check if this is the first time entering the balanced zone ... if so, manually decrease the angular velocity
             if(unbalancedTime > 0f)
             {
                 rb.angularVelocity = rb.angularVelocity / 100f;
@@ -79,6 +105,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Start player turning in a direction.
+    /// </summary>
+    /// <param name="turnRight">Turn direction.</param>
     public void StartTurn(bool turnRight)
     {
         if (isTurning || IsGrounded() == false || jumpTime > 0f)
@@ -92,13 +122,21 @@ public class PlayerMovement : MonoBehaviour
         isTurning = true;
     }
 
+    /// <summary>
+    /// Jump player in a direction. Jump direction is used to make sure it matches turn direction.
+    /// </summary>
+    /// <param name="jumpRight">Jump direction.</param>
     public void Jump(bool jumpRight)
     {
         if (!isTurning || jumpRight != turnRight)
             return;
 
+        // TODO: Jumping force can be changed in the future to prevent player from jumping with too much velocity.
+        // Possiblities are setting rigidbody velocity manually instead of AddForce
+        // or making a check to make sure the mangitude of velocity is less than some value in the direction of player jumping.
+        // Only adding jumping force if grounded
         if (IsGrounded())
-            rb.AddForce(transform.up * jumpPower, ForceMode2D.Impulse);
+            rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
 
         rb.constraints = RigidbodyConstraints2D.None;
         isTurning = false;
@@ -112,12 +150,18 @@ public class PlayerMovement : MonoBehaviour
         float rot = GetRotation();
         int dir = turnRight ? -1 : 1;
 
+        // Increasing turn speed like this may have frame rate dependent turning speed. There may be other solutions to avoid this.
         float turnSpeed = Mathf.Min(turningTime / lerpTurnTime, 1f) * maxTurnSpeed;
 
+        // Check if we are inside the max turn angle ... if so, continue to increase our rotation
         if((rot > maxTurnAngle * dir) == turnRight)
             rb.SetRotation(rot + turnSpeed * dir * Time.fixedDeltaTime);
     }
 
+    /// <summary>
+    /// Get rotation of player.
+    /// </summary>
+    /// <returns>Returns player rotation between -180f and 180f with 0f corresponding to the angle in the upright direction.</returns>
     float GetRotation()
     {
         float rot = Mathf.Repeat(rb.rotation, 360f);
@@ -134,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
+        // Check if grounded by raycasting for collision at all defined raycast spots
         foreach (Transform spot in raycastSpots)
             if (Physics2D.Raycast(spot.position, -spot.up, 0.2f))
                 return true;

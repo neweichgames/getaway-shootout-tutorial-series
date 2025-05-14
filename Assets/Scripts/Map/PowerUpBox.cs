@@ -1,6 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
+// TODO: In future consider making separate class called PowerUpBoxFX to control all graphics related with power up box.
+/// <summary>
+/// Class for collectable map power ups.
+/// </summary>
 public class PowerUpBox : MonoBehaviour
 {
     public PowerUpItem overrideItem;
