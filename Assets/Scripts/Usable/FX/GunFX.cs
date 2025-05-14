@@ -4,7 +4,7 @@ using UnityEngine;
 public class GunFX : MonoBehaviour
 {
     public GameObject shootGraphic;
-    public GameObject reloadToggleObject;
+    public GameObject reloadGraphic;
 
     public AudioSource shootSound;
     public AudioSource reloadSound;
@@ -30,25 +30,34 @@ public class GunFX : MonoBehaviour
         if (!shootGraphic.activeSelf)
             return;
 
-        while (shootTime >= 0f)
+        if(shootTime >= 0f)
             shootTime -= Time.deltaTime;
-
-        if (shootTime <= 0f)
+        else
             shootGraphic.SetActive(false);
     }
 
     void OnShoot()
     {
-        shootGraphic?.SetActive (true);
-        if(gun.GetCurAmmo() == 0)
-            reloadToggleObject?.SetActive(false);
+        if(shootGraphic != null)
+        {
+            shootGraphic.SetActive(true);
+            shootTime = 0.1f;
+        }
+            
         
-        shootSound?.Play();
+        if(reloadGraphic != null && gun.GetCurAmmo() == 0)
+            reloadGraphic.SetActive(false);
+        
+        if(shootSound != null)
+            shootSound.Play();
     }
 
     void OnReload()
     {
-        reloadSound?.Play();
-        reloadToggleObject?.SetActive(true);
+        if(reloadSound != null)
+            reloadSound.Play();
+        
+        if(reloadGraphic != null)
+            reloadGraphic.SetActive(true);
     }
 }

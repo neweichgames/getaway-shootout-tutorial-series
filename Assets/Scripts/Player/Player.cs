@@ -11,16 +11,18 @@ public class Player : MonoBehaviour
 
     private int id;
     private PlayerBody body;
+    private Health health;
 
     private void Start()
     {
         body = GetComponent<PlayerBody>();
-        GetComponent<Health>().OnDeath += Die;
+        health = GetComponent<Health>();
+        health.OnDeath += Die;
     }
 
     public void OnDestroy()
     {
-        GetComponent<Health>().OnDeath -= Die;
+        health.OnDeath -= Die;
     }
 
     public int GetPlayerID()
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
         // In future handle other components to be copied here (such as player zipline) by creating an onPlayerTeleport action
     }
 
-    void Die()
+    void Die(Health.DamageInfo info)
     {
         // Game pool object system in future?
         PlayerBody ragdollBody = Instantiate(ragdoll, transform.position, transform.rotation).GetComponent<PlayerBody>();
@@ -66,7 +68,7 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Death")
         {
-            Die();
+            health.Die(new Health.DamageInfo());
         }
     }
 }

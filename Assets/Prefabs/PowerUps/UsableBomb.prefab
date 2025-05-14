@@ -50,10 +50,11 @@ MonoBehaviour:
   useCoolDown: 0
   clipReloadTime: 1
   isAutomatic: 0
-  projectile: {fileID: 4397728473475580385, guid: c13128523b7d92946b8059541206734f, type: 3}
   shootSpot: {fileID: 966564201129394458}
+  projectile: {fileID: 4397728473475580385, guid: c13128523b7d92946b8059541206734f, type: 3}
   projectileSpeed: 0
   projectileAngularSpeed: 0
+  inheritVelocity: 1
 --- !u!1 &5216842985070279454
 GameObject:
   m_ObjectHideFlags: 0

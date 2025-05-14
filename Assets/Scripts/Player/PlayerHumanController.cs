@@ -21,7 +21,6 @@ public class PlayerHumanController : MonoBehaviour
         pu = GetComponent<PlayerPowerUp>();
 
         input = PlayerInput.GetPlayerByIndex(GetComponent<Player>().GetPlayerID());
-        Debug.Log(GetComponent<Player>().GetPlayerID());
 
         moveLeft = input.currentActionMap.FindAction("MoveLeft");
         moveRight = input.currentActionMap.FindAction("MoveRight");

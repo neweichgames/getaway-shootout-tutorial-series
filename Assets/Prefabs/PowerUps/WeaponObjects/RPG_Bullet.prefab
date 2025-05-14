@@ -97,7 +97,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5591343421801433341}
   - component: {fileID: 5128457106610936312}
+  - component: {fileID: -7877776491224761127}
   - component: {fileID: 1531211825591407511}
+  - component: {fileID: 1332736663293457219}
+  - component: {fileID: -3527458410983117483}
   - component: {fileID: 1999743017270347464}
   - component: {fileID: 4773897448521157446}
   m_Layer: 0
@@ -145,10 +148,20 @@ MonoBehaviour:
   falloff: 0.8
   sharpness: 0.8
   stoppingPower: 0
-  destoryOnExplode: 1
-  OnExplode:
-    m_PersistentCalls:
-      m_Calls: []
+--- !u!114 &-7877776491224761127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7421102256572518299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8235fbd43a3885d488a8903a82357bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticles: {fileID: 1239391362372074, guid: 5e083ecd6ee1542df81693019a3b41ce, type: 3}
+  destroyObject: 1
 --- !u!114 &1531211825591407511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +174,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c798c4c09db0fe4c84372523d2b19e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1332736663293457219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7421102256572518299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9cb9653d8bbbd42b544b2ffaf1bde2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
+--- !u!114 &-3527458410983117483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7421102256572518299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c01405eb19b234497e3484ce003040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5128457106610936312}
+        m_TargetAssemblyTypeName: Explosive, Assembly-CSharp
+        m_MethodName: Explode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!61 &1999743017270347464
 BoxCollider2D:
   m_ObjectHideFlags: 0

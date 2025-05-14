@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Explosive : Weapon
 {
@@ -9,7 +8,7 @@ public class Explosive : Weapon
     public float healthDamage = 50f;
     public float rigidbodyForce = 5f;
 
-    public float range = 25f;
+    public float range = 10f;
     [Range(0f, 1f)]
     public float falloff = 1f;
 
@@ -22,10 +21,10 @@ public class Explosive : Weapon
     [Range(0f, 1f)]
     public float stoppingPower;
 
-    public bool destoryOnExplode;
-
     // This in the future can have information about explosion (ex. objects hit etc...)
     public event Action OnExplode;
+
+    private bool exploded;
 
     private void OnDrawGizmosSelected()
     {
@@ -35,6 +34,9 @@ public class Explosive : Weapon
 
     public void Explode()
     {
+        if (exploded)
+            return;
+
         // Check explosion for all health objects in game - could be optimized in the future if need be
         // Also, rigidbodies aren't checked currently since that would be a lot more objects to check, this could be
         // optimized in the future to make this check
@@ -52,9 +54,7 @@ public class Explosive : Weapon
         }
 
         OnExplode?.Invoke();
-
-        if(destoryOnExplode)
-            Destroy(gameObject);
+        exploded = true;
     }
 
     void HitTarget(RaycastHit2D hit, Vector2 dir, float power)
@@ -65,7 +65,7 @@ public class Explosive : Weapon
 
         Health h = hit.collider.GetComponent<Health>();
         if (h != null)
-            DamageHealth(h, healthDamage);
+            DamageHealth(h, healthDamage * power);
     }
 
     void CheckExplosion(GameObject target, Vector2 targetPos)

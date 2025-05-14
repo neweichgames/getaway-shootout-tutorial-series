@@ -128,7 +128,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5543158052966420855}
+  - component: {fileID: 4993421982568347351}
   - component: {fileID: 6896162954841644587}
+  - component: {fileID: -6118262108987018810}
   m_Layer: 0
   m_Name: TeleportGun
   m_TagString: Untagged
@@ -152,6 +154,24 @@ Transform:
   - {fileID: 4849430282877060962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4993421982568347351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686992381372413504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce9414e1e2a6d44196632b068cfe73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAmmo: 1
+  ammoClipSize: 1
+  useCoolDown: 0.1
+  clipReloadTime: 0.5
+  isAutomatic: 0
+  shootSpot: {fileID: 149069318604012595}
 --- !u!114 &6896162954841644587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,14 +184,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad2fb635fc533447ba9c5035045a5c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startAmmo: 1
-  ammoClipSize: 1
-  useCoolDown: 0.1
-  clipReloadTime: 0.5
-  isAutomatic: 0
-  line: {fileID: 7609226633422425405, guid: 2f935b13dfdc217478fe23450cf0bad8, type: 3}
   ignoreMask:
     serializedVersion: 2
     m_Bits: 68
-  shootSpot: {fileID: 149069318604012595}
   range: 35
+--- !u!114 &-6118262108987018810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686992381372413504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d181e93dd23a6414fad9185c1eb6838b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletLine: {fileID: 381914752212215510, guid: f0c9ce7fb85cab74ba585733d95e5dd0, type: 3}
+  defaultHitParticles: {fileID: 0}

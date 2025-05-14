@@ -14,9 +14,8 @@ public class BulletGun : Gun
     }
 
     protected override bool UseObject(Player user)
-    {
-        bullet.SetOwner(user);
-        bullet.Fire(shootSpot);
+    {   
+        bullet.Fire(shootSpot, user);
         return true;
     }
 }

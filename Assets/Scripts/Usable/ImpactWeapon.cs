@@ -4,11 +4,11 @@ public class ImpactWeapon : Weapon
 {
     public float healthDamage = 50f;
 
-    void HitObject(GameObject other)
+    void HitObject(GameObject other, Vector2 hitPoint, Vector2 dir)
     {
         Health h = other.GetComponent<Health>();
         if (h != null)
-            DamageHealth(h, healthDamage);
+            DamageHealth(h, healthDamage, hitPoint, dir);
     }
 
     void DisableWeapon(GameObject other)
@@ -36,8 +36,12 @@ public class ImpactWeapon : Weapon
         // Sink impact into object slightly
         transform.position += (Vector3)collision.contacts[0].normal * (-0.1f);
 
+        Vector2 dir = Vector2.right;
+        if (GetComponent<Rigidbody2D>() != null)
+            dir = GetComponent<Rigidbody2D>().linearVelocity.normalized;
+
         DisableWeapon(collision.gameObject);
 
-        HitObject(collision.gameObject);
+        HitObject(collision.gameObject, collision.contacts[0].point, dir);
     }
 }

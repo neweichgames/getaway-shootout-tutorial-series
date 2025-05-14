@@ -329,6 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transparency: 0.5
+  hitParticles: 0
 --- !u!114 &3969328971695231412
 MonoBehaviour:
   m_ObjectHideFlags: 0

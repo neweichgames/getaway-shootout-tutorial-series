@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class GunLine : MonoBehaviour
+public class BulletLine : MonoBehaviour
 {
     public LineRenderer lineObj;
     public float fadeTime = 0.25f;
 
-    public void CreateLine(Bullet.ShotData[] data, Vector2 startPos, Vector2 dir)
+    public void CreateLine(Bullet.Data data)
     {
-        Vector2 prevPos = startPos;
+        Vector2 prevPos = data.startPosition;
 
-        foreach (Bullet.ShotData s in data)
+        foreach (Bullet.LineData s in data.lineData)
         {
-            Vector2 pos = startPos + dir * s.dist;
+            Vector2 pos = data.startPosition + data.direction * s.endDist;
             LineRenderer l = Instantiate(lineObj, Vector2.zero, Quaternion.identity, transform).GetComponent<LineRenderer>();
 
             l.SetPosition(0, prevPos);

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
@@ -11,25 +10,26 @@ public class Health : MonoBehaviour
     private bool isInvincible;
 
     public event Action<DamageInfo> OnDamage;
-    public event Action OnDeath;
+    public event Action<DamageInfo> OnDeath;
 
-    public UnityEvent OnDeathEvent;
-
+    /// <summary>
+    /// Data for damage that is applied at a point and direction.
+    /// </summary>
     public class HitInfo
     {
         public Vector2 point;
         public Vector2 direction;
 
-        public Vector2? exitPoint;
-
-        public HitInfo(Vector2 point, Vector2 direction, Vector2? exitPoint = null)
+        public HitInfo(Vector2 point, Vector2 direction)
         {
             this.point = point;
             this.direction = direction;
-            this.exitPoint = exitPoint;
         }
     }
 
+    /// <summary>
+    /// Data for all damage related events.
+    /// </summary>
     public struct DamageInfo
     {
         public float damage;
@@ -62,10 +62,10 @@ public class Health : MonoBehaviour
         OnDamage?.Invoke(info);
 
         if (curHealth <= 0)
-            Die();
+            Die(info);
     }
 
-    public void Die()
+    public void Die(DamageInfo info)
     {
         if(isDead) 
             return;
@@ -73,8 +73,7 @@ public class Health : MonoBehaviour
         curHealth = 0f;
         isDead = true;
 
-        OnDeath?.Invoke();
-        OnDeathEvent?.Invoke();
+        OnDeath?.Invoke(info);
     }
 
     public void SetMaxHealth()
