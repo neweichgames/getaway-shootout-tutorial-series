@@ -30,7 +30,7 @@ public class GunFX : MonoBehaviour
 
     void UpdateShootGraphic()
     {
-        if (!shootGraphic.activeSelf)
+        if (shootGraphic == null || !shootGraphic.activeSelf)
             return;
 
         if(shootTime >= 0f)
@@ -46,8 +46,8 @@ public class GunFX : MonoBehaviour
             shootGraphic.SetActive(true);
             shootTime = 0.1f;
         }
-            
-        
+
+
         if(reloadGraphic != null && gun.GetCurAmmo() == 0)
             reloadGraphic.SetActive(false);
         
