@@ -246,12 +246,12 @@ MonoBehaviour:
   - {fileID: 6696194197367958150}
   - {fileID: 1661586340536207748}
   - {fileID: 1603951327003417374}
-  balancePower: 0.3
+  balanceForce: 0.3
   maxBalancedAngle: 7.2
   maxTurnSpeed: 280
   lerpTurnTime: 0.5
   maxTurnAngle: 53.5
-  jumpPower: 11
+  jumpForce: 11
   jumpCoolDown: 0.15
 --- !u!114 &6719370088817232073
 MonoBehaviour:

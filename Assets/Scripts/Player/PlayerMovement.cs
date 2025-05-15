@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Force to apply when balancing player.
     /// </summary>
-    public float balanceForce = 6.075f;
+    public float balanceForce = 0.3f;
     /// <summary>
     /// Maximum absolute angle of player in balance. Outside this angle player will actively try to balance.
     /// </summary>
