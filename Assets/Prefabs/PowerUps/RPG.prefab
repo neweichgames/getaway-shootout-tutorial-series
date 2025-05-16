@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3343084160189024156}
   - component: {fileID: 371937793319845245}
+  - component: {fileID: -122427301577908473}
   m_Layer: 0
   m_Name: RPG
   m_TagString: Untagged
@@ -50,10 +51,27 @@ MonoBehaviour:
   useCoolDown: 0
   clipReloadTime: 1
   isAutomatic: 0
-  projectile: {fileID: 7421102256572518299, guid: aa8f5243b5ca218458af3e2ddfd68858, type: 3}
   shootSpot: {fileID: 7573618590215330388}
+  projectile: {fileID: 7421102256572518299, guid: aa8f5243b5ca218458af3e2ddfd68858, type: 3}
   projectileSpeed: 11
   projectileAngularSpeed: 0
+  inheritVelocity: 0
+--- !u!114 &-122427301577908473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4521247014322984135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e83e71b2f5d304eaa95f237f81a91a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootGraphic: {fileID: 0}
+  reloadGraphic: {fileID: 8008144196834346461}
+  shootSound: {fileID: 0}
+  reloadSound: {fileID: 0}
 --- !u!1 &6275429249872757118
 GameObject:
   m_ObjectHideFlags: 0

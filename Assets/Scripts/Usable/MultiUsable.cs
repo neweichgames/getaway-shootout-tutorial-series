@@ -21,18 +21,19 @@ public abstract class MultiUsable : Usable
             curCoolDown -= Time.deltaTime;
     }
 
+    protected abstract void UseItem();
+
     public override void CancelUse()
     {
         hasCanceled = true;
     }
 
-    public override bool Use(Player user)
+    protected override bool Use()
     {
         if (curUses <= 0 || curCoolDown > 0 || (!isAutomatic && !hasCanceled))
             return false;
 
-        if(!base.Use(user)) 
-            return false;
+        UseItem();
 
         curUses--;
         curCoolDown = coolDown;

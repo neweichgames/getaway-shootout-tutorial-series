@@ -31,18 +31,19 @@ public abstract class Gun : Usable
             curCoolDown -= Time.deltaTime;
     }
 
+    protected abstract void Fire();
+
     public override void CancelUse()
     {
         hasCanceled = true;
     }
 
-    public override bool Use(Player user)
+    protected override bool Use()
     {
         if (curClipAmmo <= 0 || curCoolDown > 0 || (!isAutomatic && !hasCanceled))
             return false;
 
-        if(!base.Use(user))
-            return false;
+        Fire();
 
         curClipAmmo--;
         curCoolDown = useCoolDown;

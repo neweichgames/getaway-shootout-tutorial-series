@@ -9,7 +9,7 @@ public class ProjectileGun : Gun
     public float projectileAngularSpeed;
     public bool inheritVelocity;
 
-    void Shoot(Player user)
+    protected override void Fire()
     {
         GameObject proj = Instantiate(projectile, shootSpot.position, shootSpot.rotation);
 
@@ -23,12 +23,5 @@ public class ProjectileGun : Gun
 
         if (proj.GetComponent<Weapon>() != null)
             proj.GetComponent<Weapon>().SetOwner(user);
-    }
-
-    protected override bool UseObject(Player user)
-    {
-        Shoot(user);
-
-        return true;
     }
 }

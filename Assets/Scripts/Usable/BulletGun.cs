@@ -13,9 +13,8 @@ public class BulletGun : Gun
         bullet = GetComponent<Bullet>();
     }
 
-    protected override bool UseObject(Player user)
+    protected override void Fire()
     {   
         bullet.Fire(shootSpot, user);
-        return true;
     }
 }
