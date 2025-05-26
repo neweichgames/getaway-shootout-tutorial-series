@@ -71,7 +71,7 @@ public class Gamemanager: MonoBehaviour
         
         // respawn player
         player.Respawn();
-        player.transform.position = Vector3.zero;
+        player.GetComponent<PlayerBody>().SetBody(Vector2.zero, 0f, 0f);
     }
 
     private void OnDisable()

@@ -62,7 +62,6 @@ public class Player : MonoBehaviour
     public void Respawn()
     {
         gameObject.SetActive(true);
-        body.SetBody(Vector2.zero, 0f, 0f);
         GetComponent<Health>().SetMaxHealth();
         onRespawn?.Invoke();
     }
