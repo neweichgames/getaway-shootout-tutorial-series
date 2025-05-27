@@ -11,11 +11,13 @@ public class Gamemanager: MonoBehaviour
 
     private Player[] players;
     private PlayerInputManager inputManager;
+    private WaypointManager waypointManager;
 
     private void Awake()
     {
         players = new Player[numPlayers];
         inputManager = GetComponent<PlayerInputManager>();
+        waypointManager = FindFirstObjectByType<WaypointManager>();
 
         CreateInput();
         CreatePlayers();
@@ -46,6 +48,10 @@ public class Gamemanager: MonoBehaviour
             players[i] = player.GetComponent<Player>();
 
             players[i].onDeathEvent += OnPlayerDeath;
+            waypointManager.AddNav(player.transform);
+
+            Vector2 spawnPos = waypointManager.GetNavCurWaypoint(player.transform).transform.position;
+            player.GetComponent<PlayerBody>().SetBody(spawnPos, 0f, 0f);
         }
     }
 
@@ -71,7 +77,8 @@ public class Gamemanager: MonoBehaviour
         
         // respawn player
         player.Respawn();
-        player.GetComponent<PlayerBody>().SetBody(Vector2.zero, 0f, 0f);
+        Vector2 spawnPos = waypointManager.GetNavCurWaypoint(player.transform).transform.position;
+        player.GetComponent<PlayerBody>().SetBody(spawnPos, 0f, 0f);
     }
 
     private void OnDisable()
