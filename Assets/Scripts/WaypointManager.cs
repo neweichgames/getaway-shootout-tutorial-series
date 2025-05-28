@@ -6,8 +6,13 @@ public class WaypointManager : MonoBehaviour
 {
     Waypoint[] waypoints;
 
-    List<Transform> navigators = new List<Transform>();
-    List<int> curWaypoints = new List<int>();
+    Dictionary<Transform, NavigatorInfo> navigatorInfo = new Dictionary<Transform, NavigatorInfo>();
+
+    class NavigatorInfo
+    {
+        public int curWaypoint;
+        public int spawnWaypoint;
+    }
 
     void Awake()
     {
@@ -16,45 +21,56 @@ public class WaypointManager : MonoBehaviour
 
     public void AddNav(Transform nav)
     {
-        navigators.Add(nav);
-        curWaypoints.Add(0);
+        navigatorInfo.Add(nav, new NavigatorInfo());
     }
 
     void Update()
     {
         UpdateNavs();
-        for (int i = 0; i < navigators.Count; i++)
+        foreach (var nav in navigatorInfo)
         {
-            Debug.DrawLine(navigators[i].position, waypoints[curWaypoints[i]].transform.position, Color.green);
+            Debug.DrawLine(nav.Key.position, waypoints[nav.Value.curWaypoint].transform.position, Color.green);
+            Debug.DrawLine(nav.Key.position, waypoints[nav.Value.spawnWaypoint].transform.position, Color.yellow);
         }
     }
 
     void UpdateNavs()
     {
-        for (int i = 0; i < navigators.Count; i++)
+        foreach (var nav in navigatorInfo)
         {
-            int curW = curWaypoints[i];
+            int curW = nav.Value.curWaypoint;
+            Vector2 pos = nav.Key.position;
 
             // Check current waypoint ... 
-            if (!waypoints[curW].InZone(navigators[i].position))
+            if (!waypoints[curW].InZone(pos))
             {
                 if (curW > 0)
-                    curWaypoints[i]--;
+                    nav.Value.curWaypoint--;
             }
-            else if (curW < waypoints.Length - 1 && waypoints[curW + 1].InZone(navigators[i].position))
-                curWaypoints[i]++;
+            else if (curW < waypoints.Length - 1 && waypoints[curW + 1].InZone(pos))
+            {
+                nav.Value.curWaypoint++;
+                if (waypoints[curW + 1].spawnable)
+                    nav.Value.spawnWaypoint = Mathf.Max(curW + 1, nav.Value.spawnWaypoint);
+            }
         }
     }
 
     public Waypoint GetNavCurWaypoint(Transform nav)
     {
-        int i = navigators.IndexOf(nav);
-        if (i < 0)
-        {
-            Debug.LogError("player not found");
-            return null;
-        }
-        
-        return waypoints[curWaypoints[i]];
+        NavigatorInfo info = navigatorInfo[nav];
+        if (info == null)
+            throw new KeyNotFoundException("Navigator was never added");
+
+        return waypoints[info.curWaypoint];
+    }
+
+    public Waypoint GetNavSpawnWaypoint(Transform nav)
+    {
+        NavigatorInfo info = navigatorInfo[nav];
+        if (info == null)
+            throw new KeyNotFoundException("Navigator was never added");
+
+        return waypoints[info.spawnWaypoint];
     }
 }

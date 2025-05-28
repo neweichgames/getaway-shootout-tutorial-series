@@ -20,12 +20,12 @@ public class WaypointEditor : Editor
         if (((int)gizmoType & (int)GizmoType.Active) != 0)
             DrawCube(waypoint);
 
-        //if (waypoint.spawnable)
-        //{
-        //    Gizmos.color = Color.red;
-        //    Gizmos.DrawSphere(waypoint.transform.position, 0.25f);
-        //}
-        //else
+        if (waypoint.spawnable)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(waypoint.transform.position, 0.25f);
+        }
+        else
         {
             Gizmos.color = Color.gray;
             Gizmos.DrawSphere(waypoint.transform.position, 0.125f);

@@ -77,7 +77,7 @@ public class Gamemanager: MonoBehaviour
         
         // respawn player
         player.Respawn();
-        Vector2 spawnPos = waypointManager.GetNavCurWaypoint(player.transform).transform.position;
+        Vector2 spawnPos = waypointManager.GetNavSpawnWaypoint(player.transform).transform.position;
         player.GetComponent<PlayerBody>().SetBody(spawnPos, 0f, 0f);
     }
 

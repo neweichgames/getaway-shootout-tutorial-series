@@ -7,6 +7,8 @@ public class Waypoint : MonoBehaviour
     public VerticalDirection verticalZone;
     public Vector2 zoneOffset;
 
+    public bool spawnable;
+
     public enum HorizontalDirection
     {
         NONE, LEFT, RIGHT
