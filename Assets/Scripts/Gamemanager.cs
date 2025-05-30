@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class Gamemanager: MonoBehaviour
 {
     public int numPlayers = 1;
+    public int numHumanPlayers = 1;
 
     public GameObject playerObj;
     public CameraManager cameraManager;
@@ -27,7 +28,7 @@ public class Gamemanager: MonoBehaviour
 
     void CreateInput()
     {
-        for (int i = 0; i < numPlayers; i++)
+        for (int i = 0; i < numHumanPlayers; i++)
         {
             if (i == 0)
                 inputManager.JoinPlayer(playerIndex: i, controlScheme: "KeyboardLeft", pairWithDevices: Keyboard.current);
@@ -44,7 +45,10 @@ public class Gamemanager: MonoBehaviour
         {
             GameObject player = Instantiate(playerObj);
             player.GetComponent<Player>().SetPlayerID(i);
-            player.AddComponent<PlayerHumanController>();
+            if (i < numHumanPlayers)
+                player.AddComponent<PlayerHumanController>();
+            else
+                player.AddComponent<PlayerComputerController>();
             players[i] = player.GetComponent<Player>();
 
             players[i].onDeathEvent += OnPlayerDeath;

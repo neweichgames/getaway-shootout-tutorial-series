@@ -65,6 +65,15 @@ public class WaypointManager : MonoBehaviour
         return waypoints[info.curWaypoint];
     }
 
+    public Waypoint GetNavNextWaypoint(Transform nav)
+    {
+        NavigatorInfo info = navigatorInfo[nav];
+        if (info == null)
+            throw new KeyNotFoundException("Navigator was never added");
+
+        return waypoints[Mathf.Min(info.curWaypoint + 1, waypoints.Length - 1)];
+    }
+
     public Waypoint GetNavSpawnWaypoint(Transform nav)
     {
         NavigatorInfo info = navigatorInfo[nav];

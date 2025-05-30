@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         inContact = true;
     }
 
-    bool IsGrounded()
+    public bool IsGrounded()
     {
         // Check if grounded by raycasting for collision at all defined raycast spots
         foreach (Transform spot in raycastSpots)
