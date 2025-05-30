@@ -124,4 +124,17 @@ public class PlayerBody : MonoBehaviour
     //{
 
     //}
+
+    /// <summary>
+    /// Get rotation of player.
+    /// </summary>
+    /// <returns>Returns player rotation between -180f and 180f with 0f corresponding to the angle in the upright direction.</returns>
+    public float GetRotation()
+    {
+        float rot = Mathf.Repeat(rb.rotation, 360f);
+        if (rot > 180f)
+            rot -= 360f;
+
+        return rot;
+    }
 }

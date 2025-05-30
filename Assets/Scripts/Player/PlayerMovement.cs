@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Balance()
     {
-        float rotation = GetRotation();
+        float rotation = body.GetRotation();
 
         // Check if we are outside our maximum balanced zone ... if so and if in contact, apply force to make player upright
         if(Mathf.Abs(rotation) > maxBalancedAngle)
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
     {
         turningTime += Time.fixedDeltaTime;
 
-        float rot = GetRotation();
+        float rot = body.GetRotation();
         int dir = turnRight ? -1 : 1;
 
         // Increasing turn speed like this may have frame rate dependent turning speed. There may be other solutions to avoid this.
@@ -156,19 +156,6 @@ public class PlayerMovement : MonoBehaviour
         // Check if we are inside the max turn angle ... if so, continue to increase our rotation
         if((rot > maxTurnAngle * dir) == turnRight)
             rb.SetRotation(rot + turnSpeed * dir * Time.fixedDeltaTime);
-    }
-
-    /// <summary>
-    /// Get rotation of player.
-    /// </summary>
-    /// <returns>Returns player rotation between -180f and 180f with 0f corresponding to the angle in the upright direction.</returns>
-    float GetRotation()
-    {
-        float rot = Mathf.Repeat(rb.rotation, 360f);
-        if (rot > 180f)
-            rot -= 360f;
-        
-        return rot;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
