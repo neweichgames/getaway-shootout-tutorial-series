@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class PlayerPowerUp : MonoBehaviour
 {
+    public event Action<Usable> OnPowerUpCreate;
+    public event Action OnPowerUpDeplete;
+
     private Player ourPlayer;
     private bool isUsing;
     
@@ -21,11 +25,20 @@ public class PlayerPowerUp : MonoBehaviour
 
     void Update()
     {
-        if(usable != null && isUsing)
-            usable.Use(ourPlayer);
+        if (isUsing)
+            Use();
     }
 
     public void Use()
+    {
+        if(usable != null)
+        {
+            usable.Use(ourPlayer);
+            usable.CancelUse();
+        }
+    }
+
+    public void StartUse()
     {
         if(usable != null)
             isUsing = true;
@@ -65,6 +78,7 @@ public class PlayerPowerUp : MonoBehaviour
         GetComponent<TargetFinder>().ActivateFinder(powerUp.findTarget);
         
         powerUpItem = powerUp;
+        OnPowerUpCreate?.Invoke(usable);
     }
 
     public bool HasPowerUp()
@@ -72,8 +86,14 @@ public class PlayerPowerUp : MonoBehaviour
         return usable != null;
     }
 
+    public Usable GetPowerUp()
+    {
+        return usable;
+    }
+
     void OnPowerUpDepleted()
     {
+        OnPowerUpDeplete?.Invoke();
         StartCoroutine(ResetPowerUpLoop());
     }
 

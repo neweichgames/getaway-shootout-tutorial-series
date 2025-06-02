@@ -61,7 +61,7 @@ public class Gamemanager: MonoBehaviour
 
     void CreateCameras()
     {
-        Camera[] cameras = cameraManager.Initalize(numPlayers);
+        Camera[] cameras = cameraManager.Initalize(numHumanPlayers);
         GetComponent<ParallaxManager>().cameras = cameras;
     }
 

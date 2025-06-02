@@ -87,7 +87,7 @@ public class PlayerHumanController : MonoBehaviour
     void OnPowerUpCallback(InputAction.CallbackContext context)
     {
         if (context.started)
-            pu.Use();
+            pu.StartUse();
         else if (context.canceled)
             pu.CancelUse();
 

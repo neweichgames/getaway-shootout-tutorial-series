@@ -1,26 +1,66 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerComputerController : MonoBehaviour
 {
     private PlayerMovement pm;
+    private PlayerPowerUp pu;
     private PlayerBody body;
     private WaypointManager wm;
 
     private const float preciseJumpXRange = 5f;
     private const float preciseJumpYRange = 1.5f;
 
+    private IEnumerator powerUpRoutine;
+
     void Awake()
     {
         pm = GetComponent<PlayerMovement>();
+        pu = GetComponent<PlayerPowerUp>();
         body = GetComponent<PlayerBody>();
 
         wm = FindFirstObjectByType<WaypointManager>();
+
+        pu.OnPowerUpCreate += OnPowerUpCreate;
+        pu.OnPowerUpDeplete += OnPowerUpDeplete;
     }
 
     private void OnEnable()
     {
         StartCoroutine(MoveLoop());
+    }
+
+    private void OnDestroy()
+    {
+        pu.OnPowerUpCreate -= OnPowerUpCreate;
+        pu.OnPowerUpDeplete -= OnPowerUpDeplete;
+    }
+
+    void OnPowerUpCreate(Usable usable)
+    {
+        powerUpRoutine = PowerUpLoop(usable);
+        StartCoroutine(powerUpRoutine);
+    }
+
+    void OnPowerUpDeplete()
+    {
+        StopCoroutine(powerUpRoutine);
+    }
+
+    IEnumerator PowerUpLoop(Usable usable)
+    {
+        int amountOfUses = 1;
+        if (usable is Gun gun)
+            amountOfUses = gun.startAmmo;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(2f / amountOfUses, 8f / amountOfUses));
+
+            // We have power up
+            pu.Use();
+        }
     }
 
     IEnumerator MoveLoop()
