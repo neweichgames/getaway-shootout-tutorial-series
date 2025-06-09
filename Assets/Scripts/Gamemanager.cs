@@ -11,14 +11,21 @@ public class Gamemanager: MonoBehaviour
     public CameraManager cameraManager;
 
     private Player[] players;
+    private Camera[] cams;
     private PlayerInputManager inputManager;
     private WaypointManager waypointManager;
+    private Finish finish;
+
+    private bool roundOver;
 
     private void Awake()
     {
         players = new Player[numPlayers];
         inputManager = GetComponent<PlayerInputManager>();
+        // TODO: Change reference future
         waypointManager = FindFirstObjectByType<WaypointManager>();
+        finish = FindFirstObjectByType<Finish>();
+        finish.OnPlayersFinished += OnPlayersFinished;
 
         CreateInput();
         CreatePlayers();
@@ -61,8 +68,8 @@ public class Gamemanager: MonoBehaviour
 
     void CreateCameras()
     {
-        Camera[] cameras = cameraManager.Initalize(numHumanPlayers);
-        GetComponent<ParallaxManager>().cameras = cameras;
+        cams = cameraManager.Initalize(numHumanPlayers);
+        GetComponent<ParallaxManager>().cameras = cams;
     }
 
     public Player GetPlayer(int playerID)
@@ -75,10 +82,26 @@ public class Gamemanager: MonoBehaviour
         StartCoroutine(RespawnPlayerLoop(player));
     }
 
+    void OnPlayersFinished(Player[] finishedPlayers)
+    {
+        roundOver = true;
+
+        foreach (Player player in players)
+            player.Deactivate();
+
+        foreach(Camera cam in cams)
+            cam.gameObject.GetComponent<CameraFollow>().SetTarget(finish.transform, false);
+
+        // Do logic of wrapping of the game ...
+    }
+
     IEnumerator RespawnPlayerLoop(Player player)
     {
         yield return new WaitForSeconds(5f);
-        
+
+        if (roundOver)
+            yield break;
+
         // respawn player
         player.Respawn();
         Vector2 spawnPos = waypointManager.GetNavSpawnWaypoint(player.transform).transform.position;

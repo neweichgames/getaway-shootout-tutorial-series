@@ -66,6 +66,19 @@ public class Player : MonoBehaviour
         onRespawn?.Invoke();
     }
 
+    public void Deactivate()
+    {
+        if (!gameObject.activeSelf)
+            return;
+
+        PlayerBody ragdollBody = Instantiate(ragdoll, transform.position, transform.rotation).GetComponent<PlayerBody>();
+        ragdollBody.SetFromOther(body);
+
+        gameObject.SetActive(false);
+        
+        onRagdollCreateEvent?.Invoke(ragdollBody.transform);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Death")
