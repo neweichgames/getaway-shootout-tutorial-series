@@ -97,7 +97,7 @@ public class Gamemanager: MonoBehaviour
 
     IEnumerator RespawnPlayerLoop(Player player)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1.5f);
 
         if (roundOver)
             yield break;
