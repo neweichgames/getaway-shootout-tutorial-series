@@ -34,7 +34,8 @@ public class Finish : MonoBehaviour
         player.Deactivate();
 
         OnPlayerEntered?.Invoke(player, firstPlayer);
-        StartCoroutine(PlayerEnteredLoop());
+        if(firstPlayer)
+            StartCoroutine(PlayerEnteredLoop());
     }
 
     IEnumerator PlayerEnteredLoop()
