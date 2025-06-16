@@ -8,9 +8,9 @@ public class Finish : MonoBehaviour
     public float finishTime = 1f;
 
     public event Action<Player, bool> OnPlayerEntered;
-    public event Action<Player[]> OnPlayersFinished;
+    public event Action OnPlayersFinished;
 
-    List<Player> finishedPlayers = new List<Player>();
+    HashSet<Player> finishedPlayers = new HashSet<Player>();
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -45,6 +45,6 @@ public class Finish : MonoBehaviour
 
     void PlayersFinished()
     {
-        OnPlayersFinished?.Invoke(finishedPlayers.ToArray());
+        OnPlayersFinished?.Invoke();
     }
 }

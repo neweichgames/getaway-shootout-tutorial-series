@@ -1,9 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Gamemanager: MonoBehaviour
 {
+    private static GameState state;
+
+    //TODO: change location of variables in future 
     public int numPlayers = 1;
     public int numHumanPlayers = 1;
 
@@ -15,17 +19,21 @@ public class Gamemanager: MonoBehaviour
     private PlayerInputManager inputManager;
     private WaypointManager waypointManager;
     private Finish finish;
-
+    
     private bool roundOver;
 
     private void Awake()
     {
+        if (state == null)
+            state = new GameState(numPlayers);
+
         players = new Player[numPlayers];
         inputManager = GetComponent<PlayerInputManager>();
         // TODO: Change reference future
         waypointManager = FindFirstObjectByType<WaypointManager>();
         finish = FindFirstObjectByType<Finish>();
-        finish.OnPlayersFinished += OnPlayersFinished;
+        finish.OnPlayersFinished += RoundOver;
+        finish.OnPlayerEntered += OnPlayerFinished;
 
         CreateInput();
         CreatePlayers();
@@ -82,9 +90,15 @@ public class Gamemanager: MonoBehaviour
         StartCoroutine(RespawnPlayerLoop(player));
     }
 
-    void OnPlayersFinished(Player[] finishedPlayers)
+    void OnPlayerFinished(Player player, bool first)
+    {
+        state.PlayerFinished(player.GetPlayerID());
+    }
+
+    void RoundOver()
     {
         roundOver = true;
+        state.RoundOver();
 
         foreach (Player player in players)
             player.Deactivate();
@@ -93,6 +107,22 @@ public class Gamemanager: MonoBehaviour
             cam.gameObject.GetComponent<CameraFollow>().SetTarget(finish.transform, false);
 
         // Do logic of wrapping of the game ...
+        if (state.GetWinner() >= 0)
+            StartCoroutine(GameOverLoop());
+        else
+            StartCoroutine(RoundOverLoop());
+    }
+
+    IEnumerator GameOverLoop()
+    {
+        yield return new WaitForSeconds(1.5f);
+        // Show game over screen, etc...
+    }
+
+    IEnumerator RoundOverLoop()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator RespawnPlayerLoop(Player player)
