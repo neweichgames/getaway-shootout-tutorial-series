@@ -24,6 +24,10 @@ public class PlayerComputerController : MonoBehaviour
 
         pu.OnPowerUpCreate += OnPowerUpCreate;
         pu.OnPowerUpDeplete += OnPowerUpDeplete;
+
+        // Temp: remove this in future
+        foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+            renderer.color = Color.green;
     }
 
     private void OnEnable()

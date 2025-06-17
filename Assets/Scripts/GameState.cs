@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class GameState
 {
     private int[] playerScore;
+    public int[] playerOrder;
 
     private List<int> finishedPlayers;
 
@@ -12,6 +13,10 @@ public class GameState
     {
         playerScore = new int[numPlayers];
         finishedPlayers = new List<int>();
+
+        playerOrder = new int[numPlayers];
+        for (int i = 0; i < numPlayers; i++)
+            playerOrder[i] = i;
     }
 
     public void PlayerFinished(int playerID)
@@ -19,7 +24,7 @@ public class GameState
         finishedPlayers.Add(playerID);
     }
 
-    public void RoundOver()
+    public void RoundOver(int[] playerOrder)
     {
         foreach(int player in finishedPlayers)
         {
@@ -28,6 +33,7 @@ public class GameState
         }
 
         finishedPlayers.Clear();
+        this.playerOrder = playerOrder;
     }
 
     public int GetWinner()

@@ -58,18 +58,21 @@ public class Gamemanager: MonoBehaviour
     {
         for (int i = 0; i < numPlayers; i++)
         {
+            int playerID = state.playerOrder[i];
+
             GameObject player = Instantiate(playerObj);
-            player.GetComponent<Player>().SetPlayerID(i);
-            if (i < numHumanPlayers)
+            player.GetComponent<Player>().SetPlayerID(playerID);
+            if (playerID < numHumanPlayers)
                 player.AddComponent<PlayerHumanController>();
             else
                 player.AddComponent<PlayerComputerController>();
-            players[i] = player.GetComponent<Player>();
+            players[playerID] = player.GetComponent<Player>();
 
-            players[i].onDeathEvent += OnPlayerDeath;
+            players[playerID].onDeathEvent += OnPlayerDeath;
             waypointManager.AddNav(player.transform);
 
             Vector2 spawnPos = waypointManager.GetNavCurWaypoint(player.transform).transform.position;
+            spawnPos += Vector2.right * 0.75f * i;
             player.GetComponent<PlayerBody>().SetBody(spawnPos, 0f, 0f);
         }
     }
@@ -98,7 +101,7 @@ public class Gamemanager: MonoBehaviour
     void RoundOver()
     {
         roundOver = true;
-        state.RoundOver();
+        state.RoundOver(GetPlayerOrder());
 
         foreach (Player player in players)
             player.Deactivate();
@@ -111,6 +114,16 @@ public class Gamemanager: MonoBehaviour
             StartCoroutine(GameOverLoop());
         else
             StartCoroutine(RoundOverLoop());
+    }
+
+    int[] GetPlayerOrder()
+    {
+        Transform[] navs = waypointManager.GetNavDistanceOrder();
+        int[] ids = new int[navs.Length];
+        for (int i = 0; i < navs.Length; i++)
+            ids[i] = navs[i].GetComponent<Player>().GetPlayerID();
+        
+        return ids;
     }
 
     IEnumerator GameOverLoop()

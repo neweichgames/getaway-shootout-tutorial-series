@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaypointManager : MonoBehaviour
 {
     Waypoint[] waypoints;
+    float[] waypointDist;
 
     Dictionary<Transform, NavigatorInfo> navigatorInfo = new Dictionary<Transform, NavigatorInfo>();
 
@@ -12,16 +14,27 @@ public class WaypointManager : MonoBehaviour
     {
         public int curWaypoint;
         public int spawnWaypoint;
+        public float distToFinish;
     }
 
     void Awake()
     {
-        waypoints = GetComponentsInChildren<Waypoint>();   
+        waypoints = GetComponentsInChildren<Waypoint>();
+        waypointDist = new float[waypoints.Length];
+
+        float dist = 0f;
+        for (int i = waypoints.Length - 2; i >= 0; i--)
+        {
+            dist += ((Vector2)waypoints[i+1].transform.position - (Vector2)waypoints[i].transform.position).magnitude;
+            waypointDist[i] = dist;
+        }
     }
 
     public void AddNav(Transform nav)
     {
-        navigatorInfo.Add(nav, new NavigatorInfo());
+        NavigatorInfo info = new NavigatorInfo();
+        info.distToFinish = waypointDist[0];
+        navigatorInfo.Add(nav, info);
     }
 
     void Update()
@@ -53,6 +66,9 @@ public class WaypointManager : MonoBehaviour
                 if (waypoints[curW + 1].spawnable)
                     nav.Value.spawnWaypoint = Mathf.Max(curW + 1, nav.Value.spawnWaypoint);
             }
+
+            float distToWaypoint = ((Vector2)waypoints[nav.Value.curWaypoint].transform.position - (Vector2)nav.Key.position).magnitude;
+            nav.Value.distToFinish = distToWaypoint + waypointDist[nav.Value.curWaypoint];
         }
     }
 
@@ -81,5 +97,10 @@ public class WaypointManager : MonoBehaviour
             throw new KeyNotFoundException("Navigator was never added");
 
         return waypoints[info.spawnWaypoint];
+    }
+
+    public Transform[] GetNavDistanceOrder()
+    {
+        return navigatorInfo.OrderBy(pair => pair.Value.distToFinish).Select(pair => pair.Key).ToArray();
     }
 }
