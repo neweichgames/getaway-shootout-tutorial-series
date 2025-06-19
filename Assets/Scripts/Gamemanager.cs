@@ -18,6 +18,7 @@ public class Gamemanager: MonoBehaviour
     private Camera[] cams;
     private PlayerInputManager inputManager;
     private WaypointManager waypointManager;
+    private MapManager mapManager;
     private Finish finish;
     
     private bool roundOver;
@@ -29,13 +30,10 @@ public class Gamemanager: MonoBehaviour
 
         players = new Player[numPlayers];
         inputManager = GetComponent<PlayerInputManager>();
-        // TODO: Change reference future
-        waypointManager = FindFirstObjectByType<WaypointManager>();
-        finish = FindFirstObjectByType<Finish>();
-        finish.OnPlayersFinished += RoundOver;
-        finish.OnPlayerEntered += OnPlayerFinished;
+        mapManager = GetComponent<MapManager>();
 
         CreateInput();
+        CreateMap();
         CreatePlayers();
         CreateCameras();
     }
@@ -52,6 +50,17 @@ public class Gamemanager: MonoBehaviour
             else
                 inputManager.JoinPlayer(playerIndex: i, controlScheme: "Gamepad");
         }   
+    }
+
+    void CreateMap()
+    {
+        mapManager.CreateMap(state);
+
+        // TODO: Change reference future
+        waypointManager = FindFirstObjectByType<WaypointManager>();
+        finish = FindFirstObjectByType<Finish>();
+        finish.OnPlayersFinished += RoundOver;
+        finish.OnPlayerEntered += OnPlayerFinished;
     }
 
     void CreatePlayers()

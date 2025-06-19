@@ -1,18 +1,21 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class GameState
 {
     private int[] playerScore;
     public int[] playerOrder;
+    public int curMap;
 
     private List<int> finishedPlayers;
 
-    private const int maxScore = 2;
+    private const int maxScore = 3;
 
     public GameState(int numPlayers)
     {
         playerScore = new int[numPlayers];
         finishedPlayers = new List<int>();
+        curMap = -1;
 
         playerOrder = new int[numPlayers];
         for (int i = 0; i < numPlayers; i++)
