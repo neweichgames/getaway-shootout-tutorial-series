@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class GameState
     private List<int> finishedPlayers;
 
     private const int maxScore = 3;
+
+    public event Action<int[]> OnScoreChanged;
 
     public GameState(int numPlayers)
     {
@@ -34,6 +37,7 @@ public class GameState
             if(finishedPlayers.Count == 1 || playerScore[player] < maxScore - 1)
                 playerScore[player]++;
         }
+        OnScoreChanged?.Invoke(playerScore);
 
         finishedPlayers.Clear();
         this.playerOrder = playerOrder;
@@ -46,5 +50,10 @@ public class GameState
                 return i;
         
         return -1;
+    }
+
+    public int[] GetScores()
+    {
+        return playerScore;
     }
 }

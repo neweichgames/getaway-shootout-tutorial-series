@@ -13,6 +13,7 @@ public class Gamemanager: MonoBehaviour
 
     public GameObject playerObj;
     public CameraManager cameraManager;
+    public ScoreboardUI scoreboardUI;
 
     private Player[] players;
     private Camera[] cams;
@@ -32,10 +33,18 @@ public class Gamemanager: MonoBehaviour
         inputManager = GetComponent<PlayerInputManager>();
         mapManager = GetComponent<MapManager>();
 
+        scoreboardUI.Init(state.GetScores());
+        state.OnScoreChanged += scoreboardUI.UpdateScores;
+
         CreateInput();
         CreateMap();
         CreatePlayers();
         CreateCameras();
+    }
+
+    private void OnDestroy()
+    {
+        state.OnScoreChanged -= scoreboardUI.UpdateScores;
     }
 
 
