@@ -99,6 +99,12 @@ public class Gamemanager: MonoBehaviour
     {
         cams = cameraManager.Initalize(numHumanPlayers);
         GetComponent<ParallaxManager>().cameras = cams;
+
+        for (int i = 0; i < cams.Length; i++)
+        {
+            Health h = players[i].GetComponent<Health>();
+            cams[i].GetComponentInChildren<HealthUI>().Init(h);
+        }
     }
 
     public Player GetPlayer(int playerID)

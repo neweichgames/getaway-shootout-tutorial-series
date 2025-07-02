@@ -5,12 +5,26 @@ public class Health : MonoBehaviour
 {
     public float maxHealth = 100f;
 
-    private float curHealth;
+    private float _curHealth;
     private bool isDead;
     private bool isInvincible;
 
     public event Action<DamageInfo> OnDamage;
     public event Action<DamageInfo> OnDeath;
+    public event Action<float> OnHealthChanged;
+
+    public float CurHealth
+    {
+        get => _curHealth;
+        set
+        {
+            if(_curHealth != value)
+            {
+                _curHealth = value;
+                OnHealthChanged?.Invoke(value);
+            }
+        }
+    }
 
     /// <summary>
     /// Data for damage that is applied at a point and direction.
@@ -48,9 +62,9 @@ public class Health : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
-        curHealth = maxHealth;
+        _curHealth = maxHealth;
     }
 
     public void Damage(DamageInfo info)
@@ -58,10 +72,10 @@ public class Health : MonoBehaviour
         if (isDead || isInvincible)
             return;
 
-        curHealth -= info.damage;
+        CurHealth -= info.damage;
         OnDamage?.Invoke(info);
 
-        if (curHealth <= 0)
+        if (CurHealth <= 0)
             Die(info);
     }
 
@@ -70,7 +84,7 @@ public class Health : MonoBehaviour
         if(isDead) 
             return;
 
-        curHealth = 0f;
+        CurHealth = 0f;
         isDead = true;
 
         OnDeath?.Invoke(info);
@@ -78,16 +92,13 @@ public class Health : MonoBehaviour
 
     public void SetMaxHealth()
     {
-        curHealth = maxHealth;
+        CurHealth = maxHealth;
         isDead = false;
     }
 
     public void IncreaseHealth(float amount, bool capHealth = true)
     {
-        curHealth += amount;
-        
-        if(capHealth)
-            curHealth = Mathf.Min(curHealth, maxHealth);
+        CurHealth = capHealth ? Mathf.Min(CurHealth + amount, maxHealth) : CurHealth + amount;
     }
 
     public void SetInvincible(bool invincible)
