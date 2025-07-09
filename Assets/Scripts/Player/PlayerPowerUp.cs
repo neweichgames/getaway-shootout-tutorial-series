@@ -38,6 +38,8 @@ public class PlayerPowerUp : MonoBehaviour
         usable.CancelUse();
     }
 
+    // Note: This method potentially delays Use by 1 frame ... Change function to call use the first time here
+    // or change structure to remove polling inputs
     public void StartUse()
     {
         if(usable != null)
