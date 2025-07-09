@@ -25,17 +25,17 @@ public class PlayerPowerUp : MonoBehaviour
 
     void Update()
     {
-        if (isUsing)
-            Use();
+        if (isUsing && usable != null)
+            usable.Use(ourPlayer);
     }
 
-    public void Use()
+    public void OneTimeUse()
     {
-        if(usable != null)
-        {
-            usable.Use(ourPlayer);
-            usable.CancelUse();
-        }
+        if (usable == null)
+            return;
+
+        usable.Use(ourPlayer);
+        usable.CancelUse();
     }
 
     public void StartUse()

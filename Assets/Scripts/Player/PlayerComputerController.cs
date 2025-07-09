@@ -63,7 +63,7 @@ public class PlayerComputerController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(2f / amountOfUses, 8f / amountOfUses));
 
             // We have power up
-            pu.Use();
+            pu.OneTimeUse();
         }
     }
 
