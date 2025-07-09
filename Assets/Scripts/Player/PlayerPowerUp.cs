@@ -96,7 +96,8 @@ public class PlayerPowerUp : MonoBehaviour
     void OnPowerUpDepleted()
     {
         OnPowerUpDeplete?.Invoke();
-        StartCoroutine(ResetPowerUpLoop());
+        if(gameObject.activeInHierarchy)
+            StartCoroutine(ResetPowerUpLoop());
     }
 
     IEnumerator ResetPowerUpLoop()
