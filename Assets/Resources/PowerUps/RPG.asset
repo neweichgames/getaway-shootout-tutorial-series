@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpObject: {fileID: 4521247014322984135, guid: 3af4bd1392be85446a1898ece10f800f, type: 3}
   icon: {fileID: 21300000, guid: 9be1545a0b66fd64199db419c81041fe, type: 3}
+  ammoIcon: {fileID: 21300000, guid: 771b0fed6c238f343825de2cae1d676a, type: 3}
   findTarget: 1
   destroyDelay: 0.5

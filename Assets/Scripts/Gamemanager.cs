@@ -104,6 +104,9 @@ public class Gamemanager: MonoBehaviour
         {
             Health h = players[i].GetComponent<Health>();
             cams[i].GetComponentInChildren<HealthUI>().Init(h);
+
+            PlayerPowerUp pu = players[i].GetComponent<PlayerPowerUp>();
+            cams[i].GetComponentInChildren<PowerUpUI>().Init(pu);
         }
     }
 

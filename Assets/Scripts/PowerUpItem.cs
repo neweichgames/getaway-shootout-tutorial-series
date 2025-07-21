@@ -6,6 +6,7 @@ public class PowerUpItem : ScriptableObject
     public GameObject powerUpObject;
 
     public Sprite icon;
+    public Sprite ammoIcon;
 
     public bool findTarget;
 

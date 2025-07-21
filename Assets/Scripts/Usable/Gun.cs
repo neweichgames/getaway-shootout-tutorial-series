@@ -86,4 +86,8 @@ public abstract class Gun : Usable
     {
         return curClipAmmo;
     }
+
+    public int GetCurClip() {
+        return Mathf.CeilToInt((curClipAmmo + curExtraAmmo) / ammoClipSize);
+    }
 }
