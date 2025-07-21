@@ -88,9 +88,9 @@ public class PlayerPowerUp : MonoBehaviour
         return usable != null;
     }
 
-    public Usable GetPowerUp()
+    public PowerUpItem GetPowerUpItem()
     {
-        return usable;
+        return powerUpItem;
     }
 
     void OnPowerUpDepleted()
