@@ -67,9 +67,16 @@ public class Gamemanager: MonoBehaviour
 
         // TODO: Change reference future
         waypointManager = FindFirstObjectByType<WaypointManager>();
+        if (waypointManager == null)
+            throw new System.Exception("Map does not contain Waypoint Manager! Add waypoint manager to map for navigation and spawn points.");
         finish = FindFirstObjectByType<Finish>();
-        finish.OnPlayersFinished += RoundOver;
-        finish.OnPlayerEntered += OnPlayerFinished;
+        if (finish == null)
+            Debug.LogError("Map does not contain finish! Add finish object for players to complete the map.");
+        else
+        {
+            finish.OnPlayersFinished += RoundOver;
+            finish.OnPlayerEntered += OnPlayerFinished;
+        }
     }
 
     void CreatePlayers()
